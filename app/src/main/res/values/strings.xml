@@ -2,4 +2,6 @@
     <string name="app_name">baocaogiuaky</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="underline_text"><u>Cow</u></string>
+    <string name="underline_text1"><u>Dog</u></string>
 </resources>

@@ -22,5 +22,15 @@
             </intent-filter>
         </activity>
     </application>
+    <activity android:name=".CheckWriting1"></activity>
+    <activity android:name=".CheckWriting2"></activity>
+    <activity android:name=".ResultActivity"></activity>
+    <activity android:name=".AnswerFalseActivity"></activity>
+    <activity android:name=".AnswerTrueActivity"></activity>
+    <activity android:name=".DetailActivity"></activity>
+    <activity android:name=".CreateActivity"></activity>
+    <activity android:name=".EditActivity"></activity>
+    <activity android:name=".ShowFlashcard1"></activity>
+    <activity android:name=".ShowFlashcard2"></activity>
 
 </manifest>
