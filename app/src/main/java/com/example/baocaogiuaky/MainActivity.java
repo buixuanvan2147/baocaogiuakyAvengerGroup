@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.fragment_container, fragment); // Chèn Fragment vào FrameLayout với id fragment_container
         fragmentTransaction.addToBackStack(null); // Để quay lại nếu cần
         fragmentTransaction.commit();
+        //b comment
     }
 
 }
