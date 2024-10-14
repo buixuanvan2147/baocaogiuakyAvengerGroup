@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Tracnghiem.TracnghiemKetqua.TNKetquaFragment">
+
+    <TextView
+        android:id="@+id/kqtext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="KẾT QUẢ"
+        android:textSize="30sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:background="@color/ketqua_header"/>
+    <TextView
+        android:id="@+id/kq_diemso"
+        android:layout_below="@id/kqtext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Hoàn thành: 3/4"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:background="@color/ketqua_header"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/ketquatablayout"
+        android:layout_below="@id/kq_diemso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/ketquatablayout"
+        app:tabIndicatorColor="@color/white"
+        app:tabSelectedTextColor="@color/white"
+        app:tabTextColor="@color/black"
+        >
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tracnghiem_kq_tatca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tất cả"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tracnghiem_kq_dung"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đúng"
+            />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/Tracnghiem_kq_sai"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sai"
+            />
+
+    </com.google.android.material.tabs.TabLayout>
+
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/ketqua_viewpager"
+        android:layout_below="@id/ketquatablayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</RelativeLayout>

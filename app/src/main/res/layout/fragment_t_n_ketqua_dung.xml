@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context=".Tracnghiem.TracnghiemKetqua.TNKetquaDungFragment">
+
+
+    <ScrollView
+        android:id="@+id/kq_dung_scrollview"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:fillViewport="true">
+
+        <!-- LinearLayout bọc chung để chứa các mục cuộn -->
+        <LinearLayout
+            android:id="@+id/kq_dung_scrollview_mainlayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--bài1-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bài 1"
+                    android:textSize="24sp"
+                    android:layout_marginLeft="50dp"/>
+
+                <Button
+                    android:id="@+id/tn_kq_bai1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tracnghiem_ketqua_dung"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="50dp"
+                    android:text="Dog: Con chó"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null"/>
+            </LinearLayout>
+
+            <!--bài2-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bài 2"
+                    android:textSize="24sp"
+                    android:layout_marginLeft="50dp"/>
+
+                <Button
+                    android:id="@+id/tn_kq_bai2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tracnghiem_ketqua_dung"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="50dp"
+                    android:text="Tiger: Con hổ"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null"/>
+            </LinearLayout>
+
+            <!--bài3-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Bài 3"
+                    android:textSize="24sp"
+                    android:layout_marginLeft="50dp"/>
+
+                <Button
+                    android:id="@+id/tn_kq_bai3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/tracnghiem_ketqua_dung"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="50dp"
+                    android:text="Cow: Con bò"
+                    android:textColor="@color/black"
+                    app:backgroundTint="@null"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="@color/kq_view"
+        android:alpha="0.5"
+        android:layout_marginTop="10dp"
+        android:layout_weight="0"
+        android:layout_gravity="bottom"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="horizontal"
+        android:background="@color/kq_footer_background"
+        android:padding="24dp">
+
+        <Button
+            android:id="@+id/tn_kq_choilai"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/tracnghiem_button"
+            android:text="Chơi lại"
+            android:textColor="@color/black"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/tn_kq_thoat"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/tracnghiem_button"
+            android:text="Thoát"
+            android:textColor="@color/black"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+</LinearLayout>
