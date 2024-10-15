@@ -129,7 +129,7 @@
         android:layout_height="217dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/background_imagecow" />
+        android:src="@mipmap/background_imagecow_foreground" />
 
     <Button
         android:id="@+id/open_camera"

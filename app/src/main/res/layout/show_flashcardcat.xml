@@ -28,7 +28,7 @@
         android:layout_height="217dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@mipmap/background_cat1" />
+        android:src="@mipmap/background_cat1_foreground" />
 
     <TextView
         android:id="@+id/id_input1"

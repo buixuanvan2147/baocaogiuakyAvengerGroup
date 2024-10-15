@@ -114,7 +114,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/background_imagecow" />
+            android:src="@mipmap/background_imagecow_foreground" />
     </LinearLayout>
 
     <LinearLayout
@@ -155,7 +155,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/background_imagelion" />
+            android:src="@mipmap/background_imagelion_foreground" />
     </LinearLayout>
 
 
@@ -197,7 +197,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/background_imagedog" />
+            android:src="@mipmap/background_imagedog_foreground" />
     </LinearLayout>
 
     <LinearLayout
@@ -238,7 +238,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/background_imagecat" />
+            android:src="@mipmap/background_imagecat_foreground" />
     </LinearLayout>
 
     <View
