@@ -1,0 +1,172 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Van.Choice0Activity"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="top|center"
+    android:background="@color/tracnghiem_background">
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="125dp"
+        android:orientation="horizontal"
+
+        android:background="@color/tracnghiem_linear_bk"
+        >
+
+        <ImageView
+            android:layout_marginStart="10dp"
+            android:id="@+id/btnBack"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="8dp"
+            android:layout_centerVertical="true"
+            app:srcCompat="@drawable/icon_arrow_back"
+            android:contentDescription="Quay lại"
+            tools:ignore="HardcodedText"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:text="Bài 1"
+            android:textSize="40sp"
+            android:layout_centerInParent="true"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@color/tracnghiem_linear_bk">
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="0dp"
+            android:layout_height="20dp"
+            android:layout_weight="1"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:max="4"
+            android:progress="1"
+            android:progressDrawable="@drawable/tracnghiem_brogressbar"
+            android:layout_marginLeft="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1/4"
+            android:textSize="25sp"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="30dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="20dp"
+            android:text="DOG"
+            android:textSize="70sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/tracnghiem1_option1"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/tracnghiem_options"
+            android:text="Con chó"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/tracnghiem1_option2"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/tracnghiem_options"
+            android:text="Con mèo"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/tracnghiem1_option3"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/tracnghiem_options"
+            android:text="Con heo"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/tracnghiem1_option4"
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/tracnghiem_options"
+            android:text="Con sư tử"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            app:backgroundTint="@null" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="80dp"
+        android:padding="24dp">
+
+        <Button
+            android:id="@+id/tracnghiem1_previous"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/tracnghiem_button"
+            android:layout_weight="1"
+            android:text="Bài trước"
+            android:textColor="@color/black"
+            android:layout_marginEnd="8dp"
+            android:layout_gravity="center"
+            app:backgroundTint="@null"
+            android:enabled="false"
+            android:textSize="20sp"
+            android:alpha="0.5"/>
+
+        <Button
+            android:id="@+id/tracnghiem1_next"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:background="@drawable/tracnghiem_button"
+            android:layout_weight="1"
+            android:text="Bài tiếp"
+            android:layout_marginStart="8dp"
+            android:layout_gravity="center"
+            app:backgroundTint="@null"
+            android:textSize="20sp"
+            android:textColor="@color/black"/>
+    </LinearLayout>
+
+</LinearLayout>

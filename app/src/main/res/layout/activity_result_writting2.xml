@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".Nhan.ResultWrittingActivity">
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="411dp"
+        android:layout_height="92dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:layout_marginTop="30dp"
+        android:text="KẾT QUẢ"
+        android:textColor="#FF000000"
+        android:textSize="32sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_result"
+        android:layout_width="411dp"
+        android:layout_height="73dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="Bạn đã làm đúng: 1/2"
+        tools:ignore="HardcodedText"
+        android:textColor="#000000"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <TextView
+            android:id="@+id/re_card_cow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp"
+            android:background="@drawable/showtext_background"
+            android:text="Cow : Con bò"
+            android:backgroundTint="#65D900"
+            android:textSize="20sp"/>
+        <TextView
+            android:id="@+id/re_card_cat"
+            android:layout_marginTop="13dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="100dp"
+            android:paddingRight="100dp"
+            android:background="@drawable/showtext_background"
+            android:text="Cat : Con mèo"
+            android:backgroundTint="#F02A2A"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="380dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="500dp">
+
+        <Button
+            android:id="@+id/btn_replay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:backgroundTint="#8692F7"
+            android:text="Chơi lại "
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/btn_exit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:backgroundTint="@color/new_purple"
+            android:text="Thoát"
+            android:textSize="20sp"
+            tools:ignore="HardcodedText" />
+
+
+    </RelativeLayout>
+</LinearLayout>

@@ -13,6 +13,89 @@
         android:theme="@style/Theme.Baocaogiuaky"
         tools:targetApi="31">
         <activity
+            android:name=".Van.Choice3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Van.Choice0Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Van.Choice2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Van.Choice1Activity"
+            android:exported="false" />
+
+        <activity
+            android:name=".Van.Slide4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Van.Slide3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Van.Slide2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Van.Silide1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.AnswerTrueActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.AnswerFalseActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ShowDetailCowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ResultWrittingActivity"
+            android:exported="false"
+            android:label="@string/title_activity_result_writting" />
+        <activity
+            android:name=".Nhan.CheckWritting2Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.CheckWritting1Activity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.EditFlashcardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.CreateNewflashcardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ShowFlashcardcowActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ShowFlashcardcatActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ShowFlashcardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SignupActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".LoginActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditFolderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateFolderActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

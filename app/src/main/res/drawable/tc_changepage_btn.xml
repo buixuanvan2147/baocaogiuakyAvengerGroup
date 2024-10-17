@@ -4,7 +4,7 @@
     <!-- Layer background màu trắng -->
     <item>
         <shape android:shape="oval">
-            <solid android:color="@color/trinhchieu_changepage_btn" />
+            <solid android:color="@color/new_purple" />
             <stroke
                 android:width="2dp"
                 android:color="@android:color/black" /> <!-- Đổ viền màu đen -->

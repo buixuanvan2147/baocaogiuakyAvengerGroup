@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditFolderActivity">
+
+    <!-- Label Layout -->
+    <LinearLayout
+        android:id="@+id/label"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/icon_return"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:paddingLeft="15dp"
+            app:srcCompat="@drawable/icon_arrow_back" />
+
+        <TextView
+            android:id="@+id/label_edit_folder"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif"
+            android:text="Wild Animal"
+            android:textSize="33sp"
+            android:gravity="center" />
+    </LinearLayout>
+
+    <!-- Edit Name Folder Layout -->
+    <LinearLayout
+        android:id="@+id/editnamefolder"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/label">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:text="Chỉnh sửa tên bộ"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_marginLeft="10dp"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bkg_edittext"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/txt_editfolder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Wild Animal "
+                android:paddingLeft="10dp"
+                android:textSize="22sp"
+                android:enabled="false"
+                android:focusable="false" />
+
+            <ImageView
+                android:id="@+id/editIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_pencil"
+                android:layout_gravity="center"
+                android:contentDescription="Edit"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Insert Image Layout -->
+    <LinearLayout
+        android:id="@+id/insertimage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="60dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/editnamefolder">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="Hình ảnh"
+            android:layout_marginLeft="10dp"
+            android:textSize="20sp" />
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="280dp"
+            android:layout_height="200dp"
+            android:elevation="8dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
+            app:cardCornerRadius="8dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/rectangle"
+
+                />
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:backgroundTint="@color/new_purple"
+            android:drawablePadding="6dp"
+            android:gravity="center"
+            android:paddingTop="12dp"
+            android:paddingBottom="12dp"
+            android:paddingRight="100dp"
+            android:paddingLeft="80dp"
+            android:text="Chỉnh sửa ảnh"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:textSize="20sp"
+            app:icon="@drawable/icon_camera_white" />
+    </LinearLayout>
+
+    <!-- Button Edit Layout -->
+    <LinearLayout
+        android:id="@+id/btnedit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/insertimage">
+
+        <TextView
+            android:id="@+id/txt_deltefolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xóa bộ"
+            android:textSize="30sp" />
+
+        <Space
+            android:layout_width="150dp"
+            android:layout_height="0dp" />
+
+        <TextView
+            android:id="@+id/txt_savefolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lưu"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

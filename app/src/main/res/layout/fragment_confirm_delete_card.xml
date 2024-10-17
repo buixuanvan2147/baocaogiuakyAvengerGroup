@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    android:elevation="8dp"
+    android:padding="60dp"
+    android:backgroundTint="@color/white"
+    tools:context=".Nhan.ConfirmDeleteCardFragment">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:gravity="center">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Xác nhận xóa thẻ Cow "
+            tools:ignore="HardcodedText"
+            android:textSize="20sp"
+            android:layout_marginBottom="30dp"/>
+
+        <LinearLayout
+            android:id="@+id/btnCancle_deletefolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_cancel_change_pass"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/new_purple"
+                android:text="@string/textcancl"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp" />
+
+            <Space
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"/>
+            <Button
+                android:id="@+id/btnConfirmdeletefolder"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/new_purple"
+                android:text="Xóa"
+                android:textColor="@color/white"
+                app:cornerRadius="5dp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Tracnghiem.TracnghiemKetqua.TNKetquaSaiFragment">
+    tools:context=".Van.result.TNKetquaSaiFragment">
 
     <ScrollView
         android:id="@+id/kq_sai_scrollview"
