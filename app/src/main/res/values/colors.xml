@@ -4,7 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="purple">#52588C</color>
     <color name="new_purple">#8692F7</color>
-
+    <color name="dark_gray">#B6B5B5</color>
     <color name="tracnghiem_linear_bk">#FFC107</color>
     <color name="tracnghiem_background">#FFFFFFFF</color>
     <color name="tracnghiem_options">#4CC9F0</color>

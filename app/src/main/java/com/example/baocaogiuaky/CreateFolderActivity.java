@@ -15,11 +15,12 @@ public class CreateFolderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_create_folder);
-        ImageView ic_return_create = findViewById(R.id.ic_return_create);
-        ic_return_create.setOnClickListener(new View.OnClickListener() {
+
+        ImageView imageView = findViewById(R.id.ic_return_create);
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CreateFolderActivity.this, HomeActivity.class);
+                Intent intent = new Intent(CreateFolderActivity.this , HomeActivity.class);
                 startActivity(intent);
             }
         });

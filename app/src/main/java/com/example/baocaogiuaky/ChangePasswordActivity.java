@@ -34,7 +34,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btn_cancel_change.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ChangePasswordActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(ChangePasswordActivity.this, PersonalFragment.class);
                 startActivity(intent);
             }
         });

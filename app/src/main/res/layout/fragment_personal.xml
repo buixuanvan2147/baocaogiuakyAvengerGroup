@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".PersonalFragment">
+
+    <!-- Chỉ có một LinearLayout là con trực tiếp của ScrollView -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:gravity="top|center">
+
+        <!-- RelativeLayout cho tiêu đề Profile -->
+        <RelativeLayout
+            android:layout_marginTop="35dp"
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-black"
+                android:gravity="center"
+                android:text="Profile"
+                android:textSize="40sp"
+                android:layout_centerInParent="true"
+                tools:ignore="HardcodedText" />
+        </RelativeLayout>
+
+        <!-- LinearLayout cho ảnh đại diện và biểu tượng camera -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/img_avatar_profile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginTop="25dp"
+                android:src="@drawable/muc" />
+
+            <ImageView
+                android:id="@+id/ic_camera_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_camera"
+                android:contentDescription="Mở camera"
+                tools:ignore="HardcodedText"/>
+        </LinearLayout>
+
+        <!-- Một LinearLayout khác nếu cần thêm nội dung -->
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical"
+           android:background="@color/white"
+           android:layout_marginTop="20dp"
+           android:layout_marginStart="12dp"
+           android:layout_marginEnd="12dp"
+           >
+
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/search_bkg"
+               android:padding="16dp"
+
+               android:layout_marginTop="3dp"
+      >
+
+               <TextView
+                   android:id="@+id/tv_username_label"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Tên đăng nhập "
+                   android:textColor="@color/black"
+                   android:textSize="22sp" />
+
+               <TextView
+                   android:id="@+id/tv_username"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="congtrung1004"
+                   android:textColor="#A9A9A9"
+                   android:textSize="18sp"
+                   android:layout_marginTop="5dp"
+                   android:layout_below="@+id/tv_username_label"/>
+           </RelativeLayout>
+           <RelativeLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/search_bkg"
+               android:padding="16dp"
+               android:layout_marginTop="3dp"
+              >
+
+               <TextView
+                   android:id="@+id/tv_email_label"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Email/Số điện thoại "
+                   android:textColor="@color/black"
+                   android:textSize="22sp" />
+
+               <TextView
+                   android:id="@+id/tv_email"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="congtrung1004@gmail.com"
+                   android:textColor="#A9A9A9"
+                   android:textSize="18sp"
+                   android:layout_below="@+id/tv_email_label"
+                   android:layout_marginTop="5dp"/>
+           </RelativeLayout>
+           <!-- Password Row -->
+           <RelativeLayout
+               android:layout_marginTop="3dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:background="@drawable/search_bkg"
+               android:padding="16dp"
+               >
+
+               <TextView
+                   android:id="@+id/tv_pass_label"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Mật khẩu "
+                   android:textColor="@color/black"
+                   android:textSize="22sp" />
+
+               <TextView
+                   android:id="@+id/tv_pass"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="congtrung1004@gmail.com"
+                   android:textColor="#A9A9A9"
+                   android:textSize="18sp"
+                   android:layout_marginTop="5dp"
+                   android:layout_below="@+id/tv_pass_label" />
+           </RelativeLayout>
+
+
+
+
+
+       </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/btn_change_pass"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/purple_search_bkg"
+                android:text="Đổi mật khẩu"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+            <Button
+                android:id="@+id/btn_logout"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btn_change_pass"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/purple_search_bkg"
+                android:text="Đăng xuất"
+                android:textSize="20sp"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+</ScrollView>
