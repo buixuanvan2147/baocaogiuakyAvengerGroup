@@ -249,11 +249,12 @@
 
     <Button
         android:id="@+id/button_add"
-        android:layout_width="62dp"
+        android:layout_width="53dp"
         android:layout_height="62dp"
         android:layout_gravity="end"
-        android:layout_marginStart="20dp"
-        android:background="@drawable/baseline_add_circle_outline_24"
-        android:textColorLink="#8692F7" />
+        android:text=""
+        app:icon="@drawable/ic_add"
+        app:iconGravity="top"
+        app:iconSize="40dp" />
 
 </LinearLayout>

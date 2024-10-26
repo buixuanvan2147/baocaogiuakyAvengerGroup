@@ -19,6 +19,9 @@
         <color name="ketquatablayout">#FF5722</color>
         <color name="kq_footer_background">#C8C6C6</color>
         <color name="kq_view">#FF5722</color>
+    <color name= "material_white">#D5D5D5</color>
+    <color name="md_blue_200">#90CAF9</color>
+    <color name="purple">#737CFB</color>
 
 <!--    test commit branch-->
     <!--Nguyễn Công Trung-->

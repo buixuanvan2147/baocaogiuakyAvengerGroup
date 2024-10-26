@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#2F3855"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/textViewSort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp thuật ngữ"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textViewOriginalOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:drawableEnd="@drawable/baseline_check_24"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="Thứ tự gốc"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/textViewAlphabeticalOrder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="8dp"
+        android:gravity="start"
+        android:padding="8dp"
+        android:text="Bảng chữ cái"
+        android:textColor="#FFFFFF" />
+</LinearLayout>
