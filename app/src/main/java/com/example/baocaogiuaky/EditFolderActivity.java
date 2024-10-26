@@ -3,6 +3,7 @@ package com.example.baocaogiuaky;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -47,8 +48,8 @@ public class EditFolderActivity extends AppCompatActivity {
         });
 
         // Xử lý sự kiện khi nhấn vào TextView có ID txt_deltefolder
-        TextView txt_deltefolder = findViewById(R.id.txt_deltefolder);
-        txt_deltefolder.setOnClickListener(v -> {
+        Button btn_delete_folder = findViewById(R.id.btn_delete_folder);
+        btn_delete_folder.setOnClickListener(v -> {
             // Hiển thị DeleteFolderDialogFragment dưới dạng dialog
             DeleteFolderDialogFragment dialogFragment = new DeleteFolderDialogFragment();
             dialogFragment.show(getSupportFragmentManager(), "DeleteFolderDialog");
