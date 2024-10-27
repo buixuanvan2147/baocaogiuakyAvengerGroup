@@ -70,7 +70,11 @@
             android:exported="false" />
         <activity
             android:name=".Nhan.ShowFlashcardActivity"
-            android:exported="false" />
+            android:exported="false" >
+
+
+
+        </activity>
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
@@ -103,6 +107,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
     </application>
 
