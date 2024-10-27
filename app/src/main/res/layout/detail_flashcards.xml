@@ -26,9 +26,10 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="272dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
             android:text="Cow"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
