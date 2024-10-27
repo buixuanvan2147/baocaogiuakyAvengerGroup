@@ -4,27 +4,45 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.baocaogiuaky.HomeActivity;
 import com.example.baocaogiuaky.R;
 
 public class AnswerTrueActivity extends AppCompatActivity {
+    private ProgressBar progressBar;
+    private TextView tvProgress;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_answer_true);
+        setContentView(R.layout.answer_true);
+        progressBar = findViewById(R.id.progressBar);
+        tvProgress = findViewById(R.id.tv_progress);
 
-        Button btn_next_one = findViewById(R.id.btn_next_one);
-        btn_next_one.setOnClickListener(new View.OnClickListener() {
+
+        progressBar.setProgress(50);
+        tvProgress.setText("1/2");
+        Button btnnext = findViewById(R.id.btn_next);
+        btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(AnswerTrueActivity.this , CheckWritting2Activity.class);
+                Intent intent = new Intent(AnswerTrueActivity.this, CheckWriting2.class);
+                startActivity(intent);
+            }
+        });
+        Button btnBack = findViewById(R.id.btn_back);
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(AnswerTrueActivity.this, HomeActivity.class);
                 startActivity(intent);
             }
         });
     }
 }
+

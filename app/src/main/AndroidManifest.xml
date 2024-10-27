@@ -65,12 +65,34 @@
         <activity
             android:name=".Nhan.ShowFlashcardcowActivity"
             android:exported="false" />
+
         <activity
-            android:name=".Nhan.ShowFlashcardcatActivity"
+            android:name=".Nhan.CheckWriting1"
             android:exported="false" />
         <activity
-            android:name=".Nhan.ShowFlashcardActivity"
+            android:name=".Nhan.CheckWriting2"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.CreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.DetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.EditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ResultActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".Nhan.ShowFlashcard1"
+            android:exported="false" />
+        <activity
+            android:name=".Nhan.ShowFlashcard2"
             android:exported="false" >
+
+
+
 
 
 
@@ -100,7 +122,7 @@
             android:name=".ChangePasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".Nhan.MainFlashcard"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

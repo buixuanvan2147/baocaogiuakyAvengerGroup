@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0A0A2C"
+    android:backgroundTint="#0a0a2c"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Chỉnh sửa thẻ"
+        android:textColor="#FFFFFF"
+        android:textSize="34sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/id_input1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên tiếng anh"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@drawable/edittext_background"
+        android:backgroundTint="#2f3855">
+
+        <EditText
+            android:id="@+id/input_word"
+            android:layout_width="314dp"
+            android:layout_height="51dp"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_edit"
+            android:layout_width="45dp"
+            android:layout_height="46dp"
+            android:background="@drawable/icon_edit"
+            android:backgroundTint="#00FFFFFF"
+            app:iconGravity="textEnd"
+            app:iconPadding="10dp"
+            app:iconSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/input_word" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/id_input2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dịch nghĩa"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="62dp"
+        android:background="@drawable/edittext_background"
+        android:backgroundTint="#2f3855">
+
+        <EditText
+            android:id="@+id/input_meaning"
+            android:layout_width="314dp"
+            android:layout_height="51dp"
+            android:padding="12dp"
+            android:textColor="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button_edit1"
+            android:layout_width="45dp"
+            android:layout_height="46dp"
+            android:background="@drawable/icon_edit"
+            android:backgroundTint="#00FFFFFF"
+            app:iconGravity="textEnd"
+            app:iconPadding="10dp"
+            app:iconSize="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/input_meaning" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="217dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_launcher_foreground" />
+
+    <Button
+        android:id="@+id/open_camera"
+        android:layout_width="168dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#2f3855"
+        android:drawableLeft="@drawable/icon_camera"
+        android:padding="12dp"
+        android:text="Chỉnh sửa ảnh"
+        android:textColor="#FFFFFF" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="32dp"
+            android:backgroundTint="#2f3855"
+            android:text="Quay lại"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/button_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2f3855"
+            android:text="Lưu"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+    </LinearLayout>
+</LinearLayout>
