@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     tools:context=".PersonalFragment">
 
@@ -163,7 +164,8 @@
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/purple_search_bkg"
+                android:backgroundTint="@color/new_purple"
+                app:cornerRadius="5dp"
                 android:text="Đổi mật khẩu"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
@@ -175,10 +177,12 @@
                 android:layout_below="@id/btn_change_pass"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
-                android:background="@drawable/purple_search_bkg"
+                android:backgroundTint="@color/new_purple"
+                app:cornerRadius="5dp"
                 android:text="Đăng xuất"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
+
 
         </RelativeLayout>
 

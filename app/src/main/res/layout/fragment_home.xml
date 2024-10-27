@@ -19,24 +19,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/searchView"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:fontFamily="sans-serif-condensed-medium"
             android:text="Flashcard"
             android:textColor="@color/white"
-            android:textSize="35sp"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="5dp"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:layout_above="@+id/searchView"/>
+            android:textSize="45sp"
+            android:textStyle="bold" />
 
         <!-- SearchView để tìm kiếm -->
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_margin="10dp"
-            android:layout_centerInParent="true"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="35dp"
             app:iconifiedByDefault="false"
             app:queryHint="Search Here"
-
             android:background="@drawable/search_bkg"/>
     </RelativeLayout>
 

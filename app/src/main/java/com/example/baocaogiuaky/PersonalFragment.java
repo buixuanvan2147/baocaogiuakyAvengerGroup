@@ -28,6 +28,16 @@ public class PersonalFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Button btn_logout = view.findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity() ,LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
         // Tìm ImageView với id ic_camera_profile
         ImageView cameraIcon = view.findViewById(R.id.ic_camera_profile);
 

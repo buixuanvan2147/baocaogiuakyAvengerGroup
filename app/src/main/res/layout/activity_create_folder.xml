@@ -35,17 +35,21 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="25dp"
             android:text="Lưu"
+            android:textStyle="bold"
             android:textSize="25sp"
             tools:ignore="HardcodeText" />
     </RelativeLayout>
 
     <TextView
+        android:elevation="5dp"
         android:id="@+id/textView"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Tạo bộ flashcard mới "
+        android:textStyle="bold"
         android:textSize="28sp"
+        te
         app:layout_constraintEnd_toEndOf="@+id/linearLayout"
         app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toStartOf="@+id/linearLayout"
@@ -71,7 +75,7 @@
             android:layout_marginBottom="10dp"
             android:fontFamily="sans-serif"
             android:text="Nhập tên bộ "
-            android:textSize="20sp" />
+            android:textSize="22sp" />
 
 
         <EditText
@@ -82,11 +86,12 @@
             android:background="@drawable/search_bkg"
             android:hint="Tên bộ"
             android:inputType="text"
-            android:paddingTop="12dp"
-            android:paddingBottom="12dp"
-            android:paddingLeft="12dp"
-            android:textSize="22sp"
-            tools:ignore="HardcodeText" />
+            android:paddingTop="15dp"
+            android:paddingBottom="15dp"
+            android:paddingLeft="15dp"
+            android:textSize="25sp"
+            tools:ignore="HardcodeText"
+            android:elevation="5dp"/>
 
 
     </LinearLayout>
