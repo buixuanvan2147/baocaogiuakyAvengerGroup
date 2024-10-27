@@ -52,4 +52,5 @@ dependencies {
     implementation ("com.tbuonomo:dotsindicator:4.3")
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
     implementation ("com.google.android.material:material:1.4.0")
+    implementation ("com.opencsv:opencsv:5.5.2")
 }
