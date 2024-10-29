@@ -5,6 +5,7 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:gravity="center"
+    android:background="@color/white"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SignupActivity">
@@ -73,6 +74,7 @@
         android:fontFamily="sans-serif-black"
         android:textSize="25sp"
         android:text="@string/sign"
+        android:textColor="@color/white"
         android:layout_marginTop="30dp"
         />
 
@@ -85,6 +87,7 @@
         tools:ignore="HardcodedText"
         android:textSize="18sp"/>
     <LinearLayout
+        android:background="@color/white"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -113,6 +116,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:background="@color/white"
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
         <TextView
