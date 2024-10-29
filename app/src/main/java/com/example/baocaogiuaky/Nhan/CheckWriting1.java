@@ -60,7 +60,7 @@ public class CheckWriting1 extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CheckWriting1.this, HomeActivity.class);
+                Intent intent = new Intent(CheckWriting1.this, MainFlashcard.class);
                 startActivity(intent);
             }
         });

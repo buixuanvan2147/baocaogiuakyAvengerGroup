@@ -7,7 +7,6 @@
     android:backgroundTint="#0a0a2c"
     android:orientation="vertical"
     android:padding="16dp">
-
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
