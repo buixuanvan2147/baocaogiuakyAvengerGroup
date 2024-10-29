@@ -64,7 +64,7 @@
             android:name=".Nhan.EditFlashcardActivity"
             android:exported="false" />
         <activity
-            android:name=".Nhan.CreateNewflashcardActivity"
+            android:name=".Nhan.CreateActivity"
             android:exported="false" />
         <activity
             android:name=".Nhan.ShowFlashcardcowActivity"
@@ -74,9 +74,6 @@
             android:exported="false" />
         <activity
             android:name=".Nhan.CheckWriting2"
-            android:exported="false" />
-        <activity
-            android:name=".Nhan.CreateActivity"
             android:exported="false" />
         <activity
             android:name=".Nhan.DetailActivity"
@@ -131,7 +128,6 @@
         <activity
             android:name=".ChangePasswordActivity"
             android:exported="false" />
-
 
     </application>
 

@@ -21,6 +21,7 @@ public class HomeActivity extends AppCompatActivity {
         // Sử dụng ActivityHomeBinding thay vì ActivityMainBinding
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        replaceFragment(new HomeFragment());
 
         // Sử dụng bottomNavigationView từ binding
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {

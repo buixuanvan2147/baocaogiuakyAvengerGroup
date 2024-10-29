@@ -115,12 +115,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_width="379dp"
+        android:layout_height="221dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
         android:background="@drawable/editimage_background"
-        android:gravity="center"
         android:elevation="5dp"
+        android:gravity="center"
         android:orientation="vertical">
 
         <ImageView
@@ -168,7 +169,8 @@
         android:text="Mở camera"
         android:textColor="@color/white"
         android:textSize="20sp"
-        tools:ignore="HardcodeText" />
+        tools:ignore="HardcodeText"
+        android:id="@+id/open_camera"/>
 
     <LinearLayout
         android:layout_width="match_parent"

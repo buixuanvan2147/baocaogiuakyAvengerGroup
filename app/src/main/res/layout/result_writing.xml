@@ -1,8 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0a0a2c"
-    android:backgroundTint="#0a0a2c"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
@@ -11,12 +11,12 @@
         android:id="@+id/tv_title"
         android:layout_width="411dp"
         android:layout_height="92dp"
-        android:background="#2f3855"
-        android:backgroundTint="#2f3855"
+        android:background="#80FFFF"
+        android:backgroundTint="#80FFFF"
         android:gravity="center"
         android:padding="8dp"
         android:text="KẾT QUẢ"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="32sp"
         android:textStyle="bold" />
 
@@ -25,12 +25,12 @@
         android:layout_width="411dp"
         android:layout_height="73dp"
         android:layout_marginBottom="16dp"
-        android:background="#2f3855"
-        android:backgroundTint="#2f3855"
+        android:background="#8692F7"
+        android:backgroundTint="#8692F7"
         android:gravity="center"
         android:padding="8dp"
         android:text="Bạn đã làm đúng: 1/2"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="18sp" />
 
     <TextView
@@ -38,7 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Những thẻ bạn vừa dùng để kiểm tra"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="20sp" />
 
 
@@ -49,7 +49,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="#16FB11"
         android:text="Cow : Con bò"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="20sp" />
 
     <Button
@@ -59,7 +59,7 @@
         android:layout_marginTop="20dp"
         android:backgroundTint="#FF0000"
         android:text="Cat : Con mèo"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="20sp" />
 
     <View
@@ -82,9 +82,9 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="50dp"
             android:layout_weight="1"
-            android:backgroundTint="#2f3855"
+            android:backgroundTint="@color/new_purple"
             android:text="Chơi lại"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20sp" />
 
         <Button
@@ -93,9 +93,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:backgroundTint="#2f3855"
+            android:backgroundTint="@color/new_purple"
             android:text="Thoát"
-            android:textColor="#FFFFFF"
+            android:textColor="#000000"
             android:textSize="20sp" />
     </LinearLayout>
 

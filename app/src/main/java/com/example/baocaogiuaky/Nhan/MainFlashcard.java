@@ -102,6 +102,7 @@ public class MainFlashcard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainFlashcard.this, HomeActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -110,6 +111,7 @@ public class MainFlashcard extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainFlashcard.this, Choice0Activity.class);
+                startActivity(intent);
             }
         });
         recyclerView = findViewById(R.id.recyclerView);

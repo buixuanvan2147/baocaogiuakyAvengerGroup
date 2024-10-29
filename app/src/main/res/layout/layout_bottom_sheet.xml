@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#2F3855"
+    android:background="@color/kq_footer_background"
     android:orientation="vertical"
     android:padding="16dp">
 
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Sắp xếp thuật ngữ"
-        android:textColor="#FFFFFF"
+        android:textColor="#000000"
         android:textSize="18sp"
         android:textStyle="bold" />
 
@@ -25,7 +25,7 @@
         android:gravity="start"
         android:padding="8dp"
         android:text="Thứ tự gốc"
-        android:textColor="#FFFFFF" />
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/textViewAlphabeticalOrder"
@@ -36,5 +36,5 @@
         android:gravity="start"
         android:padding="8dp"
         android:text="Bảng chữ cái"
-        android:textColor="#FFFFFF" />
+        android:textColor="#000000" />
 </LinearLayout>
