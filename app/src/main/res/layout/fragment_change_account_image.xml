@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:cardCornerRadius="20dp"
+    android:background="@color/white"
     tools:context=".ChangeAccountImageFragment">
 
     <LinearLayout
@@ -27,6 +28,7 @@
             android:backgroundTint="#E3E4EB"
             android:gravity="center"
             android:text="Tải ảnh lên"
+            android:textColor="@color/black"
             android:fontFamily="sans-serif"
             tools:ignore="HardcodedText"
             style="?android:attr/buttonBarButtonStyle"/>
@@ -42,6 +44,7 @@
             android:gravity="center"
             android:fontFamily="sans-serif"
             android:text="Chụp ảnh"
+            android:textColor="@color/black"
             tools:ignore="HardcodedText" />
 
         <Button
@@ -52,6 +55,7 @@
             android:backgroundTint="#E3E4EB"
             android:gravity="center"
             android:text="Hủy"
+            android:textColor="@color/black"
             android:fontFamily="sans-serif"
             tools:ignore="HardcodedText" />
     </LinearLayout>

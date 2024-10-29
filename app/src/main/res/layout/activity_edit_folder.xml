@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:background="@color/white"
     tools:context=".EditFolderActivity">
 
     <!-- Label Layout -->
@@ -16,7 +16,7 @@
     <!-- Button Edit Layout -->
 
     <LinearLayout
-
+        android:background="@color/white"
         android:id="@+id/label"
         android:layout_width="0dp"
         android:layout_height="70dp"
@@ -37,6 +37,7 @@
             app:srcCompat="@drawable/icon_arrow_back" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/label_edit_folder"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -48,6 +49,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:background="@color/white"
         android:id="@+id/editnamefolder"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -105,6 +107,7 @@
         android:layout_marginTop="368dp"
         android:gravity="center"
         android:orientation="vertical"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/editnamefolder"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
@@ -115,20 +118,24 @@
             android:layout_width="320dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:background="@drawable/search_bkg"
             android:fontFamily="sans-serif-medium"
             android:padding="10dp"
+            android:backgroundTint="@color/new_purple"
+            app:cornerRadius="5dp"
             android:text="Lưu"
+            android:textColor="@color/white"
             android:textSize="25sp" />
 
         <Button
             android:id="@+id/btn_delete_folder"
             android:layout_width="320dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/search_bkg"
+            android:backgroundTint="@color/new_purple"
+            app:cornerRadius="5dp"
             android:fontFamily="sans-serif-medium"
             android:padding="10dp"
             android:text="Xóa"
+            android:textColor="@color/white"
             android:textSize="25sp" />
 
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".HomeFragment">
 
     <!-- Background RelativeLayout, giữ lại nếu bạn muốn dùng background này -->
@@ -44,6 +45,7 @@
 
     <!-- RecyclerView bên dưới SearchView -->
     <androidx.recyclerview.widget.RecyclerView
+        android:background="@color/white"
         android:id="@+id/recycleView"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif-black"
                 android:gravity="center"
-                android:text="Profile"
+                android:text="Thông tin cá nhân "
                 android:textSize="40sp"
                 android:layout_centerInParent="true"
                 tools:ignore="HardcodedText" />
@@ -35,6 +35,7 @@
 
         <!-- LinearLayout cho ảnh đại diện và biểu tượng camera -->
         <LinearLayout
+            android:background="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -157,6 +158,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
+            android:background="@color/white"
             android:layout_centerHorizontal="true">
 
             <Button
@@ -168,6 +170,7 @@
                 app:cornerRadius="5dp"
                 android:text="Đổi mật khẩu"
                 android:textSize="20sp"
+                android:textColor="@color/white"
                 tools:ignore="HardcodedText" />
 
             <Button
@@ -180,6 +183,7 @@
                 android:backgroundTint="@color/new_purple"
                 app:cornerRadius="5dp"
                 android:text="Đăng xuất"
+                android:textColor="@color/white"
                 android:textSize="20sp"
                 tools:ignore="HardcodedText" />
 
