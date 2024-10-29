@@ -22,7 +22,7 @@ public class ResultWrittingActivity extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ResultWrittingActivity.this , ShowFlashcardActivity.class);
+                Intent intent = new Intent(ResultWrittingActivity.this , MainFlashcard.class);
                 startActivity(intent);
             }
         });

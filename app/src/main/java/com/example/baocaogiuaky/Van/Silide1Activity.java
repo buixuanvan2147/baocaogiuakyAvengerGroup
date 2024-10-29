@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.baocaogiuaky.Nhan.ShowFlashcardActivity;
+import com.example.baocaogiuaky.Nhan.MainFlashcard;
 import com.example.baocaogiuaky.R;
 
 public class Silide1Activity extends AppCompatActivity {
@@ -22,7 +22,7 @@ public class Silide1Activity extends AppCompatActivity {
         img_return_cow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Silide1Activity.this, ShowFlashcardActivity.class);
+                Intent intent = new Intent(Silide1Activity.this, MainFlashcard.class);
                 startActivity(intent);
             }
         });

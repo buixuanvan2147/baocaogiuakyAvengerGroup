@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.baocaogiuaky.Nhan.ShowFlashcardActivity;
+import com.example.baocaogiuaky.Nhan.MainFlashcard;
 import com.example.baocaogiuaky.R;
 
 public class Choice0Activity extends AppCompatActivity {
@@ -24,7 +24,7 @@ public class Choice0Activity extends AppCompatActivity {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent  = new Intent(Choice0Activity.this , ShowFlashcardActivity.class);
+                Intent intent  = new Intent(Choice0Activity.this , MainFlashcard.class);
                 startActivity(intent);
             }
         });

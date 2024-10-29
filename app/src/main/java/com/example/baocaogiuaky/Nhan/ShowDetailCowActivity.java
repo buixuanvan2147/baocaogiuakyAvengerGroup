@@ -23,7 +23,7 @@ public class ShowDetailCowActivity extends AppCompatActivity {
         img_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ShowDetailCowActivity.this , ShowFlashcardActivity.class);
+                Intent intent = new Intent(ShowDetailCowActivity.this , MainFlashcard.class);
                 startActivity(intent);
             }
         });

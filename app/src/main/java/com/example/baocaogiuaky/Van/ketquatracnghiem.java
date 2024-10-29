@@ -12,7 +12,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.baocaogiuaky.Nhan.ShowFlashcardActivity;
+import com.example.baocaogiuaky.Nhan.MainFlashcard;
 import com.example.baocaogiuaky.R;
 
 public class ketquatracnghiem extends AppCompatActivity {
@@ -33,7 +33,7 @@ public class ketquatracnghiem extends AppCompatActivity {
         btnClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ketquatracnghiem.this , ShowFlashcardActivity.class);
+                Intent intent = new Intent(ketquatracnghiem.this , MainFlashcard.class);
                 startActivity(intent);
             }
         });

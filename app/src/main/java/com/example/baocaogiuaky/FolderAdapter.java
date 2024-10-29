@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.baocaogiuaky.Nhan.ShowFlashcardActivity;
+import com.example.baocaogiuaky.Nhan.MainFlashcard;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class FolderAdapter extends  RecyclerView.Adapter<FolderAdapter.FolderVie
             public void onClick(View v) {
                 int currentPosition = holder.getAdapterPosition(); // Lấy vị trí hiện tại của item
                 if (currentPosition == 0) {
-                    Intent intent = new Intent(mContext, ShowFlashcardActivity.class);
+                    Intent intent = new Intent(mContext, MainFlashcard.class);
                     mContext.startActivity(intent);
                 }
             }

@@ -33,7 +33,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.baocaogiuaky.HomeActivity;
 import com.example.baocaogiuaky.R;
+import com.example.baocaogiuaky.Van.Choice0Activity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.opencsv.CSVReader;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -65,7 +67,7 @@ public class MainFlashcard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flashcard_item);
 
-        
+
         viewPager = findViewById(R.id.viewPager);
         dot1 = findViewById(R.id.dot1);
 
@@ -95,7 +97,21 @@ public class MainFlashcard extends AppCompatActivity {
             startActivity(intent);
         });
 
-        
+        Button btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainFlashcard.this, HomeActivity.class);
+            }
+        });
+
+        Button hoc = findViewById(R.id.hoc);
+        hoc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainFlashcard.this, Choice0Activity.class);
+            }
+        });
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

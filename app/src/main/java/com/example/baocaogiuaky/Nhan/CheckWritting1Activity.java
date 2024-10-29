@@ -23,7 +23,7 @@ public class CheckWritting1Activity extends AppCompatActivity {
         img_return.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CheckWritting1Activity.this , ShowFlashcardActivity.class);
+                Intent intent = new Intent(CheckWritting1Activity.this , MainFlashcard.class);
                 startActivity(intent);
             }
         });

@@ -5,11 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0A0A2C">
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#00FFFFFF"
             app:icon="@drawable/arrow_left"
-            app:iconGravity="textEnd"
+            android:layout_centerVertical="true"
             app:iconPadding="10dp"
             app:iconSize="30dp" />
 
@@ -28,9 +28,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:layout_marginStart="55dp"
-            android:gravity="center"
+            android:layout_centerInParent="true"
             android:text="Wild Animal"
             android:textColor="#FFFFFF"
             android:textSize="34sp"
@@ -43,9 +41,11 @@
             android:layout_weight="1"
             android:backgroundTint="#00FFFFFF"
             app:icon="@drawable/menu"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
             app:iconGravity="end"
             app:iconSize="30dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -109,7 +109,7 @@
                 android:layout_width="381dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/button_option"
                 android:drawableLeft="@drawable/baseline_featured_play_list_24"
                 android:drawablePadding="12dp"

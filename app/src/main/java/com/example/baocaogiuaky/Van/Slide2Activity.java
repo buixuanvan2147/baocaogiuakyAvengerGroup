@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.baocaogiuaky.Nhan.ShowFlashcardActivity;
+import com.example.baocaogiuaky.Nhan.MainFlashcard;
 import com.example.baocaogiuaky.R;
 
 public class Slide2Activity extends AppCompatActivity {
@@ -40,7 +40,7 @@ public class Slide2Activity extends AppCompatActivity {
         img_return_tiger.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent itent = new Intent(Slide2Activity.this , ShowFlashcardActivity.class);
+                Intent itent = new Intent(Slide2Activity.this , MainFlashcard.class);
                 startActivity(itent);
             }
         });
