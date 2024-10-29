@@ -8,13 +8,10 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.example.baocaogiuaky.Nhan.ShowFlashcardActivity;
 import com.example.baocaogiuaky.R;
-import com.example.baocaogiuaky.Van.result.TNKetquaFragment;
+import com.example.baocaogiuaky.Van.ketquatracnghiem;
 
 public class Choice3Activity extends AppCompatActivity {
 
@@ -45,17 +42,10 @@ public class Choice3Activity extends AppCompatActivity {
         end.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                replaceFragment(new TNKetquaFragment());
+                Intent intent = new Intent(Choice3Activity.this , ketquatracnghiem.class);
+                startActivity(intent);
             }
         });
 
-    }
-    // Phương thức thay thế Fragment
-    public void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.c3fragment_container, fragment); // Chèn Fragment vào FrameLayout với id fragment_container
-        fragmentTransaction.addToBackStack(null); // Để quay lại nếu cần
-        fragmentTransaction.commit();
     }
 }

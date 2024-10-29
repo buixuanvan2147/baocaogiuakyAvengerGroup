@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Baocaogiuaky"
         tools:targetApi="31">
+        <activity
+            android:name=".Van.ketquatracnghiem"
+            android:exported="false" />
         <activity
             android:name=".Van.Choice3Activity"
             android:exported="false" />
@@ -24,7 +29,6 @@
         <activity
             android:name=".Van.Choice1Activity"
             android:exported="false" />
-
         <activity
             android:name=".Van.Slide4Activity"
             android:exported="false" />
@@ -65,7 +69,6 @@
         <activity
             android:name=".Nhan.ShowFlashcardcowActivity"
             android:exported="false" />
-
         <activity
             android:name=".Nhan.CheckWriting1"
             android:exported="false" />
@@ -83,20 +86,13 @@
             android:exported="false" />
         <activity
             android:name=".Nhan.ResultActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".Nhan.ShowFlashcard1"
             android:exported="false" />
         <activity
             android:name=".Nhan.ShowFlashcard2"
-            android:exported="false" >
-
-
-
-
-
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".SignupActivity"
             android:exported="false" />
@@ -129,7 +125,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
