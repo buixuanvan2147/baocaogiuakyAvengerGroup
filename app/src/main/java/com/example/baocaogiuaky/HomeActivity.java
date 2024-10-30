@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.baocaogiuaky.databinding.ActivityHomeBinding;
 
 public class HomeActivity extends AppCompatActivity {
+    private static final int CREATE_FOLDER_REQUEST_CODE = 100;
 
     ActivityHomeBinding binding;  // Đổi thành ActivityHomeBinding
 
@@ -31,7 +32,8 @@ public class HomeActivity extends AppCompatActivity {
                 replaceFragment(new HomeFragment());
             } else if (itemId == R.id.add) {
                 Intent intent = new Intent(HomeActivity.this, CreateFolderActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, CREATE_FOLDER_REQUEST_CODE);// Thay vì startActivity, dùng startActivityForResult với requestCode là 1
+
             } else if (itemId == R.id.person) {
                 replaceFragment(new PersonalFragment());
             }
@@ -39,6 +41,26 @@ public class HomeActivity extends AppCompatActivity {
         });
 
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CREATE_FOLDER_REQUEST_CODE && resultCode == RESULT_OK) {
+            String newFolderName = data.getStringExtra("newFolderName");
+            if (newFolderName != null) {
+                // Tạo đối tượng Folder mới
+                Folder newFolder = new Folder("Avenger_group", newFolderName, R.drawable.muc);
+
+                // Gửi thư mục mới đến HomeFragment để cập nhật RecyclerView
+                HomeFragment homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.frame_layout_first);
+                if (homeFragment != null) {
+                    homeFragment.addFolder(newFolder);
+                }
+            }
+        }
+    }
+
+
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

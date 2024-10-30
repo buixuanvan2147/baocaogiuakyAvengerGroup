@@ -22,6 +22,7 @@ import androidx.core.content.ContextCompat;
 import com.example.baocaogiuaky.HomeActivity;
 import com.example.baocaogiuaky.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 public class CreateActivity extends AppCompatActivity {
@@ -58,25 +59,41 @@ public class CreateActivity extends AppCompatActivity {
                 openCamera();
             }
         });
-
-        buttonSave.setOnClickListener(v -> {
-            Intent intent = new Intent(CreateActivity.this, HomeActivity.class);
-            startActivity(intent);
-        });
-
-        buttonCancel.setOnClickListener(v -> finish());
-
         EditText inputWord = findViewById(R.id.input_word);
         Button buttonEditWord = findViewById(R.id.button_edit);
         EditText inputMeaning = findViewById(R.id.input_meaning);
         Button buttonEditMeaning = findViewById(R.id.button_edit1);
+        buttonSave.setOnClickListener(v -> {
+            Intent resultIntent = new Intent();
+            String word = inputWord.getText().toString();
+            String meaning = inputMeaning.getText().toString();
 
-        // Disable editing initially
+            imageView.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
+            imageView.setDrawingCacheEnabled(false);
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            resultIntent.putExtra("NEW_WORD", word);
+            resultIntent.putExtra("NEW_MEANING", meaning);
+            resultIntent.putExtra("NEW_IMAGE", byteArray);
+
+            setResult(RESULT_OK, resultIntent);
+            finish();
+        });
+
+        buttonCancel.setOnClickListener(v -> finish());
+
+
+
+        
         inputWord.setEnabled(false);
         inputMeaning.setEnabled(false);
         ImageView iconCancelWord;
         iconCancelWord = findViewById(R.id.icon_cancel);
-        // Toggle edit mode for inputWord
+        
         buttonEditWord.setOnClickListener(v -> {
             isEditingWord = !isEditingWord;
             inputWord.setEnabled(isEditingWord);
@@ -89,7 +106,7 @@ public class CreateActivity extends AppCompatActivity {
 
 
 
-        // Toggle edit mode for inputMeaning
+        
         buttonEditMeaning.setOnClickListener(v -> {
             isEditingMeaning = !isEditingMeaning;
             inputMeaning.setEnabled(isEditingMeaning);

@@ -12,6 +12,8 @@ import android.animation.ObjectAnimator;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -63,16 +65,19 @@ public class MainFlashcard extends AppCompatActivity {
     private String currentSortOrder = "Thứ tự gốc";
     private TextView textViewOriginalOrder, textViewAlphabeticalOrder;
     private static final int REQUEST_CODE_IMPORT_CSV = 1;
+    private List<Flashcard1> flashcardList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flashcard_item);
-
-
+        flashcardList = new ArrayList<>();
+        flashcardList.add(new Flashcard1("Cow", "Con Bò", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_foreground)));
+        flashcardList.add(new Flashcard1("Cat", "Con Mèo", BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher_foreground1)));
+        flashcardList.add(new Flashcard1("Tiger", "Con Hổ", BitmapFactory.decodeResource(getResources(), R.drawable.tiger)));
         viewPager = findViewById(R.id.viewPager);
         dot1 = findViewById(R.id.dot1);
 
-        viewAdapter = new ViewAdapter(this);
+        viewAdapter = new ViewAdapter(this, flashcardList);
         viewPager.setAdapter(viewAdapter);
         dot1.setViewPager(viewPager);
 
@@ -121,8 +126,8 @@ public class MainFlashcard extends AppCompatActivity {
 
         animalList = new ArrayList<>();
 
-        // Thiết lập khoảng cách giữa các item bằng MarginItemDecoration
-        int margin = 16; // khoảng cách giữa các item (đơn vị là pixel)
+        
+        int margin = 16; 
         recyclerView.addItemDecoration(new MarginItemDecoration(margin));
 
         animalList.add(new Animal("Cow", "Con bò", R.raw.cow));
@@ -194,9 +199,9 @@ public class MainFlashcard extends AppCompatActivity {
         bottomSheetDialog.setContentView(bottomSheetView);
         LinearLayout layoutAdd = bottomSheetView.findViewById(R.id.layoutAdd);
         layoutAdd.setOnClickListener(v -> {
-            
+
             Intent intent = new Intent(MainFlashcard.this, CreateActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, 1);
             bottomSheetDialog.dismiss();
         });
         LinearLayout layoutlive = bottomSheetView.findViewById(R.id.layoutLive);
@@ -233,6 +238,19 @@ public class MainFlashcard extends AppCompatActivity {
             Uri uri = data.getData();
             if (uri != null) {
                 importCSV(uri);
+            }
+        }
+        if (requestCode == 1 && resultCode == RESULT_OK && data != null) {
+            String newWord = data.getStringExtra("NEW_WORD");
+            String newMeaning = data.getStringExtra("NEW_MEANING");
+            byte[] byteArray = data.getByteArrayExtra("NEW_IMAGE");
+
+            if (newWord != null && newMeaning != null && byteArray != null) {
+                Bitmap newImage = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+
+                Flashcard1 newFlashcard = new Flashcard1(newWord, newMeaning, newImage);
+                flashcardList.add(newFlashcard);
+                viewAdapter.notifyDataSetChanged();
             }
         }
     }

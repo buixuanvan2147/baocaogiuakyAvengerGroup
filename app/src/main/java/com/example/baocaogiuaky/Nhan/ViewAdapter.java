@@ -4,24 +4,29 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.example.baocaogiuaky.R;
 
+import java.util.List;
+
 public class ViewAdapter extends PagerAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
-
-    public ViewAdapter(Context context) {
+    private List<Flashcard1> flashcardList;
+    public ViewAdapter(Context context, List<Flashcard1> flashcardList) {
         this.context = context;
+        this.flashcardList = flashcardList;
     }
 
     @Override
     public int getCount() {
-        return 2; // Số lượng trang
+        return flashcardList.size();  // Số lượng trang dựa trên danh sách flashcards
     }
 
     @Override
@@ -29,18 +34,33 @@ public class ViewAdapter extends PagerAdapter {
         return view == object;
     }
 
+    public void addFlashcard(Flashcard1 flashcard) {
+        flashcardList.add(flashcard);
+    }
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-        // Chọn layout cho từng trang
-        int layoutResId = (position == 0) ? R.layout.flashcard_item_cow : R.layout.flashcard_item_cat; // layout1 và layout2 là hai layout chứa front và back
+        // Lấy flashcard từ danh sách dựa trên vị trí
+        Flashcard1 flashcard = flashcardList.get(position);
+
+        // Chọn layout cho từng flashcard (hoặc giữ layout chung nếu cần)
+        int layoutResId = R.layout.flashcard_item1;  // Đảm bảo layout này có các views cần thiết
         View view = layoutInflater.inflate(layoutResId, container, false);
 
         // Tìm front và back layout trong trang hiện tại
         LinearLayout frontCard = view.findViewById(R.id.new_front_card);
         LinearLayout backCard = view.findViewById(R.id.new_back_card);
+
+        // Đặt dữ liệu vào front và back card
+        TextView nameTextView = view.findViewById(R.id.show_word);
+        TextView descriptionTextView = view.findViewById(R.id.show_meaning);
+        ImageView flashcardImageView = view.findViewById(R.id.imageView2);
+
+        nameTextView.setText(flashcard.getName());
+        descriptionTextView.setText(flashcard.getDescription());
+        flashcardImageView.setImageBitmap(flashcard.getImage());
 
         // Đặt khoảng cách camera cho hiệu ứng lật
         frontCard.setCameraDistance(8000 * context.getResources().getDisplayMetrics().density);
@@ -53,7 +73,6 @@ public class ViewAdapter extends PagerAdapter {
         container.addView(view);
         return view;
     }
-
     private void setupFlipEvent(LinearLayout frontCard, LinearLayout backCard) {
         frontCard.setOnClickListener(v -> flipCard(frontCard, backCard));
         backCard.setOnClickListener(v -> flipCard(backCard, frontCard));

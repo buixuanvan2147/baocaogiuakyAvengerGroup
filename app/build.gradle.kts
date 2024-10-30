@@ -54,4 +54,5 @@ dependencies {
     implementation ("com.google.android.material:material:1.4.0")
     implementation ("com.opencsv:opencsv:5.5.2")
             implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation ("com.google.android.gms:play-services-auth:20.0.1")
 }

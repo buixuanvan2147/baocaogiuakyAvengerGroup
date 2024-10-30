@@ -1,5 +1,6 @@
 package com.example.baocaogiuaky;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,9 +8,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -22,7 +27,7 @@ public class HomeFragment extends Fragment {
     private SearchView searchView;
     private FolderAdapter folderAdapter;
     private List<Folder> folderList;
-
+    private static final int CREATE_FOLDER_REQUEST_CODE = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,23 +61,42 @@ public class HomeFragment extends Fragment {
                 return true;
             }
 
-            private void filterList(String newText) {
-                List<Folder> filteredList = new ArrayList<>();
-                for (Folder item : folderList) {
-                    if (item.getName_Folder().toLowerCase().contains(newText.toLowerCase())) {
-                        filteredList.add(item);
-                    }
-                }
-                if (filteredList.isEmpty()) {
-                    Toast.makeText(getContext(), "No folder found", Toast.LENGTH_SHORT).show();
-                } else {
-                    folderAdapter.setFilteredList(filteredList);
-                }
+
+        });
+        // Thiết lập ItemTouchHelper
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP | ItemTouchHelper.DOWN, 0) {
+            @Override
+            public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                int fromPosition = viewHolder.getAdapterPosition();
+                int toPosition = target.getAdapterPosition();
+                folderAdapter.moveItem(fromPosition, toPosition);
+                return true;
+            }
+
+            @Override
+            public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                // Không xử lý vuốt (swipe) trong trường hợp này
             }
         });
+        itemTouchHelper.attachToRecyclerView(rcvfolder);
 
         return view;
     }
+    private void filterList(String newText) {
+        List<Folder> filteredList = new ArrayList<>();
+        for (Folder item : folderList) {
+            if (item.getName_Folder().toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(item);
+            }
+        }
+        folderAdapter.setFilteredList(filteredList);
+    }
+
+    public void addFolder(Folder folder) {
+        folderList.add(folder); // Thêm thư mục mới vào danh sách
+        folderAdapter.notifyItemInserted(folderList.size() - 1); // Cập nhật RecyclerView
+    }
+
 
     // Danh sách thư mục mẫu
     private List<Folder> getListFolder() {
@@ -86,4 +110,5 @@ public class HomeFragment extends Fragment {
 
         return list;
     }
+
 }
