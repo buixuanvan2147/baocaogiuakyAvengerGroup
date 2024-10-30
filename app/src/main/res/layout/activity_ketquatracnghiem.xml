@@ -5,7 +5,7 @@
     android:id="@+id/main"
     android:orientation="vertical"
     android:background="#1A1A3C"
-    android:padding="16dp"
+    android:paddingTop="40dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Van.ketquatracnghiem">
@@ -219,6 +219,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 app:backgroundTint="@null"
+                android:textColor="@color/white"
                 android:background="@drawable/button_bkground"
                 android:text="Xem lại thẻ ghi nhớ"
                 android:drawableLeft="@drawable/ic_list"/>

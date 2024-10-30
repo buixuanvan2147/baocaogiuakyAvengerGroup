@@ -36,6 +36,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.baocaogiuaky.HomeActivity;
 import com.example.baocaogiuaky.R;
 import com.example.baocaogiuaky.Van.Choice0Activity;
+import com.example.baocaogiuaky.Van.Silide1Activity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.opencsv.CSVReader;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
@@ -86,7 +87,7 @@ public class MainFlashcard extends AppCompatActivity {
         
         Button btnSave = findViewById(R.id.ghinho);
         btnSave.setOnClickListener(v -> {
-            Intent intent = new Intent(MainFlashcard.this, DetailActivity.class);
+            Intent intent = new Intent(MainFlashcard.this, Silide1Activity.class);
             startActivity(intent);
         });
 
@@ -119,6 +120,11 @@ public class MainFlashcard extends AppCompatActivity {
 
 
         animalList = new ArrayList<>();
+
+        // Thiết lập khoảng cách giữa các item bằng MarginItemDecoration
+        int margin = 16; // khoảng cách giữa các item (đơn vị là pixel)
+        recyclerView.addItemDecoration(new MarginItemDecoration(margin));
+
         animalList.add(new Animal("Cow", "Con bò", R.raw.cow));
         animalList.add(new Animal("Cat", "Con mèo", R.raw.cat));
 

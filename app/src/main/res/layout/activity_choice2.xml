@@ -6,6 +6,7 @@
     tools:context=".Van.Choice2Activity"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:layout_marginTop="32dp"
     android:backgroundTint="@null"
     android:background="@color/tracnghiem_background">
 
@@ -14,7 +15,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="16dp"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
         android:background="@color/tracnghiem_linear_bk"
         >
 
@@ -36,13 +39,14 @@
             android:fontFamily="sans-serif-black"
             android:gravity="center"
             android:text="Bài 3"
+            android:textColor="@color/black"
             android:textSize="40sp"
             android:layout_centerInParent="true"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
 
     <LinearLayout
-        android:padding="10dp"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -65,6 +69,7 @@
             android:layout_height="wrap_content"
             android:text="3/4"
             android:textSize="25sp"
+            android:textColor="@color/black"
             android:gravity="center_vertical"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="30dp"/>
@@ -85,6 +90,7 @@
             android:layout_marginRight="50dp"
             android:layout_marginTop="20dp"
             android:text="COW"
+            android:textColor="@color/black"
             android:textSize="70sp"
             android:gravity="center"/>
 

@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="top|center"
+    android:background="@color/white"
     tools:context=".Van.Slide4Activity">
     <RelativeLayout
         android:layout_width="360dp"
@@ -32,14 +33,15 @@
             android:fontFamily="sans-serif-black"
             android:gravity="center"
             android:text="Cat"
+            android:textColor="@color/black"
             android:textSize="40sp"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
 
     <ImageView
         android:layout_marginTop="10dp"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/cat"/>
@@ -56,6 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/name_english"
+            android:textColor="@color/black"
             android:layout_marginBottom="8dp"
             android:textSize="20sp"/>
 
@@ -80,6 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/translate"
+            android:textColor="@color/black"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/show_meaning"
@@ -103,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/pronunciation"
+            android:textColor="@color/black"
             android:textSize="20sp"/>
         <TextView
             android:id="@+id/show_pronunciation"
@@ -119,20 +124,20 @@
     <RelativeLayout
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         >
 
         <ImageView
             android:id="@+id/ic_back_four"
             android:layout_width="40dp"
-            android:layout_height="70dp"
+            android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:src="@drawable/arrow_back"/>
 
         <ImageView
             android:id="@+id/ic_forward_four"
             android:layout_width="40dp"
-            android:layout_height="70dp"
+            android:layout_height="40dp"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="0dp"
             android:src="@drawable/arrow_forward_two" />
