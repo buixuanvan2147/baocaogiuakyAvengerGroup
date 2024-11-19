@@ -1,0 +1,161 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout9"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Nhan.GroupActivity">
+
+
+    <TextView
+        android:id="@+id/group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:text="Thông tin nhóm"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/thanhvien1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/thanhvien1"
+        android:layout_width="405dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/group">
+
+        <TextView
+            android:id="@+id/id_hoten1"
+            android:layout_width="384dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tên : Nguyễn Văn Nhân"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/id_masv1"
+            android:layout_width="137dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Mã SV : 22115053122126" />
+
+        <TextView
+            android:id="@+id/id_lhp1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Lớp HP : 124LTTD03" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thanhvien2"
+        android:layout_width="405dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thanhvien1">
+
+        <TextView
+            android:id="@+id/id_hoten2"
+            android:layout_width="384dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tên : Bùi Xuân Văn"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/id_masv2"
+            android:layout_width="137dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Mã SV : 22115053122147 " />
+
+        <TextView
+            android:id="@+id/id_lhp2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Lớp HP : 124LTTD03" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/thanvien3"
+        android:layout_width="405dp"
+        android:layout_height="71dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thanhvien2">
+
+        <TextView
+            android:id="@+id/id_hoten3"
+            android:layout_width="384dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tên : Nguyễn Công Trung"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/id_masv3"
+            android:layout_width="137dp"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:gravity="center"
+            android:text="Mã SV : 22115141122124" />
+
+        <TextView
+            android:id="@+id/id_lhp3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Lớp HP : 124LTTD03" />
+    </LinearLayout>
+
+    <dev.sagar.progress_button.ProgressButton
+        android:id="@+id/loading"
+        android:layout_width="235dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="96dp"
+        android:textSize="18sp"
+        app:corner_radius="50dp"
+        app:default_text="LET'S GO"
+        app:disabled_color="#F44336"
+        app:finish_text="FINISHED"
+        app:finished_color="#00BCD4"
+        app:is_vibrate="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thanvien3"
+        app:pressed_color="#5C5C5A" />
+</androidx.constraintlayout.widget.ConstraintLayout>
