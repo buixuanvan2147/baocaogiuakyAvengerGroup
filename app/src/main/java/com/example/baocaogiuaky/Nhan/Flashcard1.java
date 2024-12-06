@@ -3,15 +3,17 @@ package com.example.baocaogiuaky.Nhan;
 public class Flashcard1 {
     private String name;
     private String description;
-    private String imageBase64;
+    private String imagePath; 
     private String soundUrl;
     private String cardId;
+
     public Flashcard1() {
     }
-    public Flashcard1(String name, String description, String imageBase64, String soundUrl) {
+
+    public Flashcard1(String name, String description, String imagePath, String soundUrl) {
         this.name = name;
         this.description = description;
-        this.imageBase64 = imageBase64;
+        this.imagePath = imagePath;
         this.soundUrl = soundUrl;
     }
 
@@ -31,12 +33,12 @@ public class Flashcard1 {
         this.description = description;
     }
 
-    public String getImageBase64() {
-        return imageBase64;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageBase64(String imageBase64) {
-        this.imageBase64 = imageBase64;
+    public void setImagePath(String imagePath) { 
+        this.imagePath = imagePath;
     }
 
     public String getSoundUrl() {
@@ -46,6 +48,7 @@ public class Flashcard1 {
     public void setSoundUrl(String soundUrl) {
         this.soundUrl = soundUrl;
     }
+
     public String getCardId() {
         return cardId;
     }

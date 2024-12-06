@@ -36,8 +36,8 @@ import java.util.List;
 public class ViewAdapter extends PagerAdapter {
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<Flashcard1> flashcardList ;
-    private DatabaseReference databaseReference;
+    private List<Flashcard1> flashcardList;
+
     public ViewAdapter(Context context) {
         this.context = context;
         this.flashcardList = new ArrayList<>();
@@ -54,36 +54,20 @@ public class ViewAdapter extends PagerAdapter {
                         flashcard.setCardId(snapshot.getKey());
                         flashcard.setName(snapshot.child("name").getValue(String.class));
                         flashcard.setDescription(snapshot.child("description").getValue(String.class));
-                        flashcard.setImageBase64(snapshot.child("imageBase64").getValue(String.class));
+                        flashcard.setImagePath(snapshot.child("imagePath").getValue(String.class));
                         flashcard.setSoundUrl(snapshot.child("soundUrl").getValue(String.class));
-
                         tempFlashcards.add(flashcard);
                     }
                 }
-                updateFlashcards(tempFlashcards); // Cập nhật dữ liệu vào Adapter
-                Log.d("AnimalAdapter", "Flashcards loaded: " + tempFlashcards.size());
+                updateFlashcards(tempFlashcards); 
+                Log.d("ViewAdapter", "Flashcards loaded: " + tempFlashcards.size());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("AnimalAdapter", "Error loading data from Firebase", databaseError.toException());
+                Log.e("ViewAdapter", "Error loading data from Firebase", databaseError.toException());
             }
         });
-    }
-
-    private Bitmap decodeBase64ToBitmap(String base64) {
-        byte[] decodedString = android.util.Base64.decode(base64, android.util.Base64.DEFAULT);
-        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-    }
-
-    private Bitmap loadBitmapFromUrl(String url) {
-        try {
-            InputStream inputStream = new URL(url).openStream();
-            return BitmapFactory.decodeStream(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -99,7 +83,6 @@ public class ViewAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
         Flashcard1 flashcard = flashcardList.get(position);
 
         int layoutResId = R.layout.flashcard_item1;
@@ -115,27 +98,29 @@ public class ViewAdapter extends PagerAdapter {
         nameTextView.setText(flashcard.getName());
         descriptionTextView.setText(flashcard.getDescription());
 
-        // Giải mã Base64 hoặc tải từ URL
-        // Giải mã chuỗi Base64 thành Bitmap nếu không null hoặc rỗng
-        if (flashcard.getImageBase64() != null && !flashcard.getImageBase64().isEmpty()) {
-            byte[] decodedString = Base64.decode(flashcard.getImageBase64(), Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            flashcardImageView.setImageBitmap(decodedByte);
-        } else {
-            // Đặt hình mặc định nếu không có hình ảnh
-            flashcardImageView.setImageResource(R.drawable.purple_search_bkg);
+        
+        if (flashcard.getImagePath() != null && !flashcard.getImagePath().isEmpty()) {
+            flashcardImageView.setImageBitmap(BitmapFactory.decodeFile(flashcard.getImagePath()));
         }
 
-
-            frontCard.setCameraDistance(8000 * context.getResources().getDisplayMetrics().density);
+        frontCard.setCameraDistance(8000 * context.getResources().getDisplayMetrics().density);
         backCard.setCameraDistance(8000 * context.getResources().getDisplayMetrics().density);
 
         setupFlipEvent(frontCard, backCard);
-
         container.addView(view);
         return view;
     }
 
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        container.removeView((View) object);
+    }
+
+    public void updateFlashcards(List<Flashcard1> newFlashcards) {
+        flashcardList.clear();
+        flashcardList.addAll(newFlashcards);
+        notifyDataSetChanged();
+    }
 
     private void setupFlipEvent(LinearLayout frontCard, LinearLayout backCard) {
         frontCard.setOnClickListener(v -> flipCard(frontCard, backCard));
@@ -159,11 +144,4 @@ public class ViewAdapter extends PagerAdapter {
             }).start();
         }
     }
-
-    @Override
-    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        container.removeView((View) object);
-    }
-    public void updateFlashcards(List<Flashcard1> newFlashcards) { flashcardList.clear(); flashcardList.addAll(newFlashcards); notifyDataSetChanged(); }
-
 }

@@ -1,5 +1,7 @@
 package com.example.baocaogiuaky.Nhan;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,9 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -32,12 +37,12 @@ public class EditActivity extends AppCompatActivity {
     private Button openCameraButton;
     private boolean isEditingWord = false;
     private boolean isEditingMeaning = false;
-    private String imageBase64 = null;
+    private String imagePath = null;
 
-    // Biến lưu trạng thái ban đầu
+    
     private String originalName;
     private String originalTranslation;
-    private String originalImageBase64;
+    private String originalImagePath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,49 +59,50 @@ public class EditActivity extends AppCompatActivity {
         EditText inputMeaning = findViewById(R.id.input_meaning);
         Button buttonEditMeaning = findViewById(R.id.button_edit1);
 
-        // Lấy dữ liệu từ Intent
+        
         String name = getIntent().getStringExtra("name");
         String translation = getIntent().getStringExtra("translation");
-        imageBase64 = getIntent().getStringExtra("imageBase64");
+        imagePath = getIntent().getStringExtra("imagePath");
 
-        // Lưu trạng thái ban đầu
+        
         originalName = name;
         originalTranslation = translation;
-        originalImageBase64 = imageBase64;
+        originalImagePath = imagePath;
 
         inputWord.setText(name);
         inputMeaning.setText(translation);
 
-        if (imageBase64 != null && !imageBase64.isEmpty()) {
-            byte[] decodedString = android.util.Base64.decode(imageBase64, android.util.Base64.DEFAULT);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            imageView.setImageBitmap(decodedByte);
-        } else {
-            imageView.setImageResource(R.drawable.purple_search_bkg); // Hình mặc định nếu không có hình
+        if (imagePath != null && !imagePath.isEmpty()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            if (bitmap != null) {
+                imageView.setImageBitmap(bitmap);
+            } else {
+                imageView.setImageResource(R.drawable.purple_search_bkg); 
+            }
         }
 
         inputWord.setEnabled(false);
         inputMeaning.setEnabled(false);
 
-        // Nút Lưu
+        
         Button btnSave = findViewById(R.id.button_save);
         btnSave.setOnClickListener(v -> {
             String updatedName = inputWord.getText().toString();
             String updatedTranslation = inputMeaning.getText().toString();
 
-            // Kiểm tra các giá trị nhập liệu
+            
             if (updatedName.isEmpty() || updatedTranslation.isEmpty()) {
                 Toast.makeText(EditActivity.this, "Vui lòng điền đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            // Tạo Intent để trả kết quả về
+            
             Intent resultIntent = new Intent();
             resultIntent.putExtra("name", updatedName);
             resultIntent.putExtra("translation", updatedTranslation);
-            resultIntent.putExtra("imageBase64", imageBase64);
+            resultIntent.putExtra("imagePath", imagePath);
 
-            // Cập nhật dữ liệu vào Firebase
+            
             String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
             String folderId = getIntent().getStringExtra("folderId");
             String cardId = getIntent().getStringExtra("cardId");
@@ -112,7 +118,7 @@ public class EditActivity extends AppCompatActivity {
                 Map<String, Object> update = new HashMap<>();
                 update.put("name", updatedName);
                 update.put("description", updatedTranslation);
-                update.put("imageBase64", imageBase64);
+                update.put("imagePath", imagePath);
 
                 cardRef.updateChildren(update)
                         .addOnSuccessListener(aVoid -> {
@@ -128,30 +134,33 @@ public class EditActivity extends AppCompatActivity {
         });
 
         openCameraButton.setOnClickListener(v -> openGallery());
-        // Nút Hủy
+        
         btnBack.setOnClickListener(v -> {
-            // Khôi phục dữ liệu ban đầu
+            
             inputWord.setText(originalName);
             inputMeaning.setText(originalTranslation);
 
-            if (originalImageBase64 != null && !originalImageBase64.isEmpty()) {
-                byte[] decodedString = android.util.Base64.decode(originalImageBase64, android.util.Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                imageView.setImageBitmap(decodedByte);
+            if (originalImagePath != null && !originalImagePath.isEmpty()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(originalImagePath);
+                if (bitmap != null) {
+                    imageView.setImageBitmap(bitmap);
+                } else {
+                    imageView.setImageResource(R.drawable.purple_search_bkg);
+                }
             } else {
                 imageView.setImageResource(R.drawable.purple_search_bkg);
             }
 
-            // Trả kết quả gốc về DetailActivity
+            
             Intent resultIntent = new Intent();
             resultIntent.putExtra("name", originalName);
             resultIntent.putExtra("translation", originalTranslation);
-            resultIntent.putExtra("imageBase64", originalImageBase64);
+            resultIntent.putExtra("imagePath", originalImagePath);
             setResult(RESULT_CANCELED, resultIntent);
             finish();
         });
 
-        // Các xử lý khác (như chỉnh sửa từ/ý nghĩa) không thay đổi
+        
         buttonEditWord.setOnClickListener(v -> toggleEditing(inputWord, buttonEditWord));
         buttonEditMeaning.setOnClickListener(v -> toggleEditing(inputMeaning, buttonEditMeaning));
     }
@@ -181,17 +190,34 @@ public class EditActivity extends AppCompatActivity {
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 imageView.setImageBitmap(bitmap);
-                imageBase64 = bitmapToBase64(bitmap);
+                imagePath = saveImageToInternalStorage(bitmap, "image_" + UUID.randomUUID().toString() + ".png");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
 
-    private String bitmapToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        byte[] byteArray = baos.toByteArray();
-        return android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
+    private String saveImageToInternalStorage(Bitmap bitmap, String fileName) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File mypath = new File(directory, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath() + "/" + fileName;
     }
 }
+

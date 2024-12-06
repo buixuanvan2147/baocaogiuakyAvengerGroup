@@ -6,10 +6,13 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.content.ContentValues;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
@@ -52,11 +55,14 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.opencsv.CSVReader;
+import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.tbuonomo.viewpagerdotsindicator.DotsIndicator;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,6 +75,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -121,7 +128,7 @@ public class MainFlashcard extends AppCompatActivity {
         kiemtra.setOnClickListener(v -> {
             if (flashcardList.isEmpty()) {
                 adapter.loadAnimalsFromFirebase(databaseReference, () -> {
-                    // Kiểm tra dữ liệu sau khi tải từ Firebase
+                    
                     Log.d("MainFlashcard", "FlashcardList after load: " + flashcardList);
                     createWritingTests();
                 });
@@ -182,8 +189,7 @@ public class MainFlashcard extends AppCompatActivity {
                 .child(folderId)
                 .child("cards");
         adapter.loadAnimalsFromFirebase(databaseReference, () -> {
-            originalList.clear(); // Xóa dữ liệu cũ trong originalList
-            originalList.addAll(flashcardList); // Đồng bộ lại originalList
+            originalList.addAll(flashcardList);
             viewAdapter.loadFlashcardsFromFirebase(databaseReference);
         });
         swipeRefreshLayout.setOnRefreshListener(() -> {
@@ -201,33 +207,48 @@ public class MainFlashcard extends AppCompatActivity {
     private void createWritingTests() {
         ArrayList<String> questions = new ArrayList<>();
         ArrayList<String> answers = new ArrayList<>();
-        ArrayList<byte[]> imageBytes = new ArrayList<>();
-
+        ArrayList<String> imagePaths = new ArrayList<>(); 
 
         for (int i = 0; i < flashcardList.size(); i++) {
             Flashcard1 flashcard = flashcardList.get(i);
             questions.add(flashcard.getDescription());
             answers.add(flashcard.getName());
-
-
-            Bitmap bitmap = decodeBase64ToBitmap(flashcard.getImageBase64());
-            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-            byte[] byteArray = byteArrayOutputStream.toByteArray();
-            imageBytes.add(byteArray);
+            imagePaths.add(flashcard.getImagePath()); 
         }
-
 
         Intent intent = new Intent(MainFlashcard.this, CheckWriting1.class);
         intent.putStringArrayListExtra("questions", questions);
         intent.putStringArrayListExtra("answers", answers);
-        intent.putExtra("imageBytes", imageBytes);
+        intent.putStringArrayListExtra("imagePaths", imagePaths); 
         intent.putExtra("totalQuestions", flashcardList.size());
         intent.putExtra("currentQuestionIndex", 1);
         intent.putExtra("folderId", folderId);
         startActivity(intent);
     }
 
+
+    private String saveImageToInternalStorage(Bitmap bitmap, String fileName) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File mypath = new File(directory, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath() + "/" + fileName;
+    }
 
     private Bitmap decodeBase64ToBitmap(String base64) {
         byte[] decodedString = Base64.decode(base64, Base64.DEFAULT);
@@ -382,7 +403,7 @@ public class MainFlashcard extends AppCompatActivity {
                 if (flashcard.getName().equals(updatedName)) {
                     flashcard.setName(updatedName);
                     flashcard.setDescription(updatedTranslation);
-                    flashcard.setImageBase64(updatedImageBase64);
+                    flashcard.setImagePath(updatedImageBase64);
                     break;
                 }
             }
@@ -391,7 +412,7 @@ public class MainFlashcard extends AppCompatActivity {
                 if (flashcard.getName().equals(updatedName)) {
                     flashcard.setName(updatedName);
                     flashcard.setDescription(updatedTranslation);
-                    flashcard.setImageBase64(updatedImageBase64);
+                    flashcard.setImagePath(updatedImageBase64);
                     break;
                 }
             }
@@ -414,6 +435,12 @@ public class MainFlashcard extends AppCompatActivity {
         ExecutorService executorService = Executors.newSingleThreadExecutor();
         Handler mainHandler = new Handler(Looper.getMainLooper());
 
+        int lineCount = countLines(uri);
+        if (lineCount == 0) {
+            Toast.makeText(this, "The CSV file is empty or unreadable", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         executorService.execute(() -> {
             try {
                 InputStream inputStream = getContentResolver().openInputStream(uri);
@@ -430,90 +457,118 @@ public class MainFlashcard extends AppCompatActivity {
                         String imageUrl = fields[2];
                         String soundUrl = fields[3];
 
-                        Bitmap bitmap = loadBitmapFromUrl(imageUrl);
 
-                        String base64Image = null;
-                        if (bitmap != null) {
-                            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-                            byte[] byteArray = stream.toByteArray();
-                            base64Image = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
-                        }
+                        mainHandler.post(() -> {
+                            loadBitmapFromUrl(imageUrl, bitmap -> {
+                                String imagePath = null;
+                                if (bitmap != null) {
+                                    imagePath = saveImageToInternalStorage(bitmap, "image_" + UUID.randomUUID().toString() + ".png");
+                                }
 
-                        Flashcard1 flashcard = new Flashcard1(name, description, base64Image, soundUrl);
-                        flashcards.add(flashcard);
+                                Flashcard1 flashcard = new Flashcard1(name, description, imagePath, soundUrl);
+                                flashcards.add(flashcard);
+
+
+                                if (flashcards.size() == lineCount) {
+                                    mainHandler.post(() -> {
+                                        saveFlashcardsToFirebase(flashcards);
+
+
+                                        viewAdapter.updateFlashcards(flashcards);
+                                        viewPager.setAdapter(viewAdapter);
+                                        dot1.setViewPager(viewPager);
+                                        adapter = new AnimalAdapter(MainFlashcard.this, flashcardList, folderId);
+                                        recyclerView.setAdapter(adapter);
+                                        Toast.makeText(MainFlashcard.this, "Import completed successfully", Toast.LENGTH_SHORT).show();
+                                    });
+                                }
+                            });
+                        });
                     }
                 }
 
                 reader.close();
 
-                mainHandler.post(() -> {
-                    saveFlashcardsToFirebase(flashcards);
-
-                    // Cập nhật giao diện hoặc các thành phần với flashcards mới
-                    viewAdapter = new ViewAdapter(this);
-                    viewAdapter.updateFlashcards(flashcards);
-                    viewPager.setAdapter(viewAdapter);
-
-                    dot1.setViewPager(viewPager);
-                    adapter = new AnimalAdapter(this,flashcardList, folderId);
-                    recyclerView.setAdapter(adapter);
-                    Toast.makeText(this, "Import completed successfully", Toast.LENGTH_SHORT).show();
-                });
-
             } catch (IOException e) {
                 e.printStackTrace();
                 mainHandler.post(() -> {
-                    Toast.makeText(this, "Error reading CSV file", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainFlashcard.this, "Error reading CSV file", Toast.LENGTH_SHORT).show();
                 });
             }
         });
     }
 
 
-    private Bitmap loadBitmapFromUrl(String url) {
+    private int countLines(Uri uri) {
         try {
-            URL imageUrl = new URL(url);
-            HttpURLConnection connection = (HttpURLConnection) imageUrl.openConnection();
-            connection.setDoInput(true);
-            connection.connect();
-            InputStream input = connection.getInputStream();
-            return BitmapFactory.decodeStream(input);
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            int lines = 0;
+            while (reader.readLine() != null) lines++;
+            reader.close();
+            return lines;
         } catch (IOException e) {
             e.printStackTrace();
-            return null;
+            return 0;
         }
     }
 
+    private void loadBitmapFromUrl(String url, OnBitmapLoadedListener listener) {
+        Handler mainHandler = new Handler(Looper.getMainLooper());
+        mainHandler.post(() -> {
+            Picasso.get().load(url).into(new Target() {
+                @Override
+                public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+                    listener.onBitmapLoaded(bitmap);
+                }
+
+                @Override
+                public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+                    listener.onBitmapLoaded(null);
+                }
+
+                @Override
+                public void onPrepareLoad(Drawable placeHolderDrawable) {
+
+                }
+            });
+        });
+    }
+
+    interface OnBitmapLoadedListener {
+        void onBitmapLoaded(Bitmap bitmap);
+    }
+
+
 
     private void saveFlashcardsToFirebase(List<Flashcard1> flashcards) {
-        // Lấy ID người dùng hiện tại
+
         FirebaseAuth auth = FirebaseAuth.getInstance();
         String userId = auth.getCurrentUser() != null ? auth.getCurrentUser().getUid() : null;
 
         if (userId == null) {
-            // Xử lý khi người dùng chưa đăng nhập
+
             Toast.makeText(this, "User not logged in", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Tham chiếu đến vị trí người dùng trong Firebase Realtime Database
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference flashcardsRef = database.getReference("users")
-                .child(userId) // Sử dụng userId để lưu dữ liệu của người dùng
-                .child("folders").child(folderId).child("cards");
+                .child(userId)
+                .child("folders").child("folderId1").child("cards");
 
-        // Lưu từng flashcard
+
         for (Flashcard1 flashcard : flashcards) {
-            String flashcardId = flashcardsRef.push().getKey(); // Tạo ID duy nhất cho mỗi flashcard
+            String flashcardId = flashcardsRef.push().getKey();
             if (flashcardId != null) {
                 Map<String, Object> flashcardData = new HashMap<>();
                 flashcardData.put("name", flashcard.getName());
                 flashcardData.put("description", flashcard.getDescription());
-                flashcardData.put("imageBase64", flashcard.getImageBase64());
+                flashcardData.put("imagePath", flashcard.getImagePath());
                 flashcardData.put("soundUrl", flashcard.getSoundUrl());
 
-                // Lưu dữ liệu vào Firebase Realtime Database
+
                 flashcardsRef.child(flashcardId).setValue(flashcardData)
                         .addOnSuccessListener(aVoid -> {
                             refreshData();
@@ -529,66 +584,82 @@ public class MainFlashcard extends AppCompatActivity {
 
 
     private void exportToCSV() {
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-        db.collection("flashcard1")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        StringBuilder csvContent = new StringBuilder("Term,Definition,ImageBase64\n");
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid(); // Lấy UID người dùng hiện tại
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users")
+                .child(userId)
+                .child("folders")
+                .child(folderId)
+                .child("cards");
 
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            String term = document.getString("name");
-                            String definition = document.getString("description");
-                            String imageBase64 = document.getString("imageBase64");
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                StringBuilder csvContent = new StringBuilder("Term,Definition,ImagePath\n");
 
-                            csvContent.append(term).append(",")
-                                    .append(definition).append(",")
-                                    .append(imageBase64).append("\n");
-                        }
+                for (DataSnapshot cardSnapshot : dataSnapshot.getChildren()) {
+                    String term = cardSnapshot.child("name").getValue(String.class);
+                    String definition = cardSnapshot.child("description").getValue(String.class);
+                    String imagePath = cardSnapshot.child("imagePath").getValue(String.class);
 
-                        try {
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-                                Uri uri = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
-                                ContentValues contentValues = new ContentValues();
-                                contentValues.put(MediaStore.Downloads.DISPLAY_NAME, "flashcards.csv");
-                                contentValues.put(MediaStore.Downloads.MIME_TYPE, "text/csv");
-                                contentValues.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/Flashcards");
+                    csvContent.append(term).append(",")
+                            .append(definition).append(",")
+                            .append(imagePath).append("\n");
+                }
 
-                                Uri fileUri = getContentResolver().insert(uri, contentValues);
-                                if (fileUri != null) {
-                                    try (OutputStream outputStream = getContentResolver().openOutputStream(fileUri)) {
-                                        outputStream.write(csvContent.toString().getBytes());
-                                        Toast.makeText(this, "Exported to Downloads/Flashcards", Toast.LENGTH_LONG).show();
-                                    }
-                                } else {
-                                    Toast.makeText(this, "Failed to export CSV", Toast.LENGTH_SHORT).show();
-                                }
-                            } else {
-                                if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                                        != PackageManager.PERMISSION_GRANTED) {
-                                    ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-                                    return;
-                                }
+                if (csvContent.length() == "Term,Definition,ImagePath\n".length()) {
+                    Toast.makeText(MainFlashcard.this, "No data found in Realtime Database", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-                                File exportDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Flashcards");
-                                if (!exportDir.exists()) {
-                                    exportDir.mkdirs();
-                                }
-                                File file = new File(exportDir, "flashcards.csv");
-                                try (FileWriter writer = new FileWriter(file)) {
-                                    writer.write(csvContent.toString());
-                                    Toast.makeText(this, "Exported to " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
-                                }
+                try {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                        Uri uri = MediaStore.Downloads.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY);
+                        ContentValues contentValues = new ContentValues();
+                        contentValues.put(MediaStore.Downloads.DISPLAY_NAME, "flashcards.csv");
+                        contentValues.put(MediaStore.Downloads.MIME_TYPE, "text/csv");
+                        contentValues.put(MediaStore.Downloads.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS + "/Flashcards");
+
+                        Uri fileUri = getContentResolver().insert(uri, contentValues);
+                        if (fileUri != null) {
+                            try (OutputStream outputStream = getContentResolver().openOutputStream(fileUri)) {
+                                outputStream.write(csvContent.toString().getBytes());
+                                Toast.makeText(MainFlashcard.this, "Exported to Downloads/Flashcards", Toast.LENGTH_LONG).show();
                             }
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            Toast.makeText(this, "Error saving CSV file", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(MainFlashcard.this, "Failed to export CSV", Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Toast.makeText(this, "Failed to load data from Firestore", Toast.LENGTH_SHORT).show();
+                        if (ContextCompat.checkSelfPermission(MainFlashcard.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                                != PackageManager.PERMISSION_GRANTED) {
+                            ActivityCompat.requestPermissions(MainFlashcard.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+                            return;
+                        }
+
+                        File exportDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "Flashcards");
+                        if (!exportDir.exists()) {
+                            exportDir.mkdirs();
+                        }
+                        File file = new File(exportDir, "flashcards.csv");
+                        try (FileWriter writer = new FileWriter(file)) {
+                            writer.write(csvContent.toString());
+                            Toast.makeText(MainFlashcard.this, "Exported to " + file.getAbsolutePath(), Toast.LENGTH_LONG).show();
+                        }
                     }
-                });
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    Toast.makeText(MainFlashcard.this, "Error saving CSV file", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.e("RealtimeDatabaseError", "Failed to load cards data from Realtime Database", databaseError.toException());
+                Toast.makeText(MainFlashcard.this, "Failed to load cards data from Realtime Database", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
+
+
 
 
 }

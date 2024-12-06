@@ -1,99 +1,194 @@
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_refresh_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <RelativeLayout
-                android:id="@+id/linearLayout"
+            <Button
+                android:id="@+id/btn_back"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:backgroundTint="#00FFFFFF"
+                app:icon="@drawable/arrow_left"
+                app:iconPadding="10dp"
+                app:iconSize="30dp"
+                app:iconTint="#000000" />
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="Wild Animal"
+                android:textColor="#000000"
+                android:textSize="34sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnmenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_weight="1"
+                android:backgroundTint="#00FFFFFF"
+                app:icon="@drawable/menu"
+                app:iconGravity="end"
+                app:iconSize="30dp"
+                app:iconTint="#000000" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/linearLayout"
+            android:fillViewport="true">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                android:orientation="vertical">
 
-                <Button
-                    android:id="@+id/btn_back"
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:backgroundTint="#00FFFFFF"
-                    app:icon="@drawable/arrow_left"
-                    app:iconPadding="10dp"
-                    app:iconSize="30dp"
-                    app:iconTint="#000000" />
+                <androidx.viewpager.widget.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="285dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
-                <TextView
-                    android:id="@+id/title"
+                <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+                    android:id="@+id/dot1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:text="Wild Animal"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="32dp"
+                    app:dotsColor="@android:color/darker_gray"
+                    app:dotsSize="15dp"
+                    app:dotsSpacing="5dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.498"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager"
+                    app:progressMode="true"
+                    app:selectedDotColor="@color/purple" />
+
+                <Button
+                    android:id="@+id/ghinho"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_option"
+                    android:drawableLeft="@drawable/baseline_featured_play_list_24"
+                    android:drawablePadding="12dp"
+                    android:paddingStart="16dp"
+                    android:text="Trình chiếu"
+                    android:textAlignment="textStart"
                     android:textColor="#000000"
-                    android:textSize="34sp"
-                    android:textStyle="bold" />
+                    android:textSize="20sp"
+                    app:backgroundTint="@null"
+                    app:iconTint="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
                 <Button
-                    android:id="@+id/btnmenu"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/hoc"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_weight="1"
-                    android:backgroundTint="#00FFFFFF"
-                    app:icon="@drawable/menu"
-                    app:iconGravity="end"
-                    app:iconSize="30dp"
-                    app:iconTint="#000000" />
-            </RelativeLayout>
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_option"
+                    android:drawableLeft="@drawable/baseline_badge_24"
+                    android:drawablePadding="12dp"
+                    android:paddingStart="16dp"
+                    android:text="Trắc nghiệm"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:backgroundTint="@null"
+                    app:iconTint="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ghinho" />
 
-            <androidx.core.widget.NestedScrollView android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/linearLayout" android:fillViewport="true">
+                <Button
+                    android:id="@+id/kiemtra"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_option"
+                    android:drawablePadding="12dp"
+                    android:paddingStart="16dp"
+                    android:text="Kiểm tra viết"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:backgroundTint="@null"
+                    app:icon="@drawable/check_to_slot_solid"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hoc" />
+
+                <Button
+                    android:id="@+id/trochoi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_option"
+                    android:drawablePadding="12dp"
+                    android:paddingStart="16dp"
+                    android:text="Ghép thẻ"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="20sp"
+                    app:backgroundTint="@null"
+                    app:icon="@drawable/baseline_videogame_asset_24"
+                    app:iconSize="20dp"
+                    app:iconTint="#000000"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.533"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/hoc" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical" >
-
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewPager"
-                        android:layout_width="match_parent"
-                        android:layout_height="285dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-                    <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
-                        android:id="@+id/dot1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="32dp"
-                        app:dotsColor="@android:color/darker_gray"
-                        app:dotsSize="15dp"
-                        app:dotsSpacing="5dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.498"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/viewPager"
-                        app:progressMode="true"
-                        app:selectedDotColor="@color/purple" />
+                    android:layout_marginTop="30dp"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/vocabulary"
+                        android:id="@+id/card"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="32dp"
-                        android:text="Từ vựng"
+                        android:layout_marginTop="10dp"
+                        android:paddingStart="12dp"
+                        android:text="Thẻ"
                         android:textColor="#000000"
                         android:textSize="20sp"
                         android:textStyle="bold"
@@ -101,147 +196,42 @@
                         app:layout_constraintTop_toBottomOf="@+id/dot1" />
 
                     <Button
-                        android:id="@+id/ghinho"
-                        android:layout_width="match_parent"
+                        android:id="@+id/textView8"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/button_option"
-                        android:drawableLeft="@drawable/baseline_featured_play_list_24"
-                        android:drawablePadding="12dp"
-                        android:paddingStart="16dp"
-                        android:text="Trình chiếu"
-                        android:textAlignment="textStart"
+                        android:layout_gravity="end"
+                        android:layout_marginStart="150dp"
+                        android:backgroundTint="#00FFFFFF"
+                        android:drawableEnd="@drawable/baseline_filter_list_24"
+                        android:drawablePadding="10dp"
+                        android:paddingEnd="12dp"
+                        android:text="Thứ tự gốc"
+                        android:textAlignment="textEnd"
                         android:textColor="#000000"
                         android:textSize="20sp"
-                        app:backgroundTint="@null"
-                        app:iconTint="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.533"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
-
-                    <Button
-                        android:id="@+id/hoc"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/button_option"
-                        android:drawableLeft="@drawable/baseline_badge_24"
-                        android:drawablePadding="12dp"
-                        android:paddingStart="16dp"
-                        android:text="Trắc nghiệm"
-                        android:textAlignment="textStart"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:backgroundTint="@null"
-                        app:iconTint="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.533"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ghinho" />
-
-                    <Button
-                        android:id="@+id/kiemtra"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/button_option"
-                        android:drawablePadding="12dp"
-                        android:paddingStart="16dp"
-                        android:text="Kiểm tra viết"
-                        android:textAlignment="textStart"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:backgroundTint="@null"
-                        app:icon="@drawable/check_to_slot_solid"
-                        app:iconSize="20dp"
-                        app:iconTint="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.533"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hoc" />
-
-                    <Button
-                        android:id="@+id/trochoi"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/button_option"
-                        android:drawablePadding="12dp"
-                        android:paddingStart="16dp"
-                        android:text="Ghép thẻ"
-                        android:textAlignment="textStart"
-                        android:textColor="#000000"
-                        android:textSize="20sp"
-                        app:backgroundTint="@null"
-                        app:icon="@drawable/baseline_videogame_asset_24"
-                        app:iconSize="20dp"
-                        app:iconTint="#000000"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.533"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/hoc" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/card"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:paddingStart="12dp"
-                            android:text="Thẻ"
-                            android:textColor="#000000"
-                            android:textSize="20sp"
-                            android:textStyle="bold"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/dot1" />
-
-                        <Button
-                            android:id="@+id/textView8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="end"
-                            android:layout_marginStart="150dp"
-                            android:backgroundTint="#00FFFFFF"
-                            android:drawableEnd="@drawable/baseline_filter_list_24"
-                            android:drawablePadding="10dp"
-                            android:paddingEnd="12dp"
-                            android:text="Thứ tự gốc"
-                            android:textAlignment="textEnd"
-                            android:textColor="#000000"
-                            android:textSize="20sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="3dp"
-                        android:layout_gravity="bottom"
-                        android:layout_weight="0"
-                        android:alpha="0.5"
-                        android:background="#525354" />
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="275dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@color/white"
-                        android:padding="16dp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ghinho" />
+                        android:textStyle="bold" />
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
 
-        </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="3dp"
+                    android:layout_gravity="bottom"
+                    android:layout_weight="0"
+                    android:alpha="0.5"
+                    android:background="#525354" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="275dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/white"
+                    android:padding="16dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/ghinho" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

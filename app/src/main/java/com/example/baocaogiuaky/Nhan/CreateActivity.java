@@ -1,6 +1,8 @@
 package com.example.baocaogiuaky.Nhan;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -27,9 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -79,13 +84,9 @@ public class CreateActivity extends AppCompatActivity {
             Bitmap bitmap = Bitmap.createBitmap(imageView.getDrawingCache());
             imageView.setDrawingCacheEnabled(false);
 
-            ByteArrayOutputStream stream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-            byte[] byteArray = stream.toByteArray();
-            String imageBase64 = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
-
-            saveFlashcardToDatabase(word, meaning, imageBase64);
+            saveFlashcardToDatabase(word, meaning, bitmap);
         });
+
 
         buttonCancel.setOnClickListener(v -> finish());
 
@@ -124,6 +125,28 @@ public class CreateActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(cameraIntent, CAMERA_CAPTURE_CODE);
     }
+    private String saveImageToInternalStorage(Bitmap bitmap, String fileName) {
+        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+        File mypath = new File(directory, fileName);
+
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fos != null) {
+                    fos.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath() + "/" + fileName;
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -152,36 +175,39 @@ public class CreateActivity extends AppCompatActivity {
         }
     }
 
-    private void saveFlashcardToDatabase(String word, String meaning, String imageBase64) {
-        // Lấy đối tượng FirebaseDatabase và tham chiếu tới nút "users"
+    private void saveFlashcardToDatabase(String word, String meaning, Bitmap bitmap) {
+        
+        String imagePath = saveImageToInternalStorage(bitmap, "image_" + UUID.randomUUID().toString() + ".png");
+
+        
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usersRef = database.getReference("users");
 
-        // Lấy UID người dùng hiện tại, bạn có thể thay đổi để lấy từ Firebase Auth nếu cần
+        
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        // Tạo đối tượng flashcard
+        
         Map<String, Object> flashcard = new HashMap<>();
         flashcard.put("name", word);
         flashcard.put("description", meaning);
-        flashcard.put("imageBase64", imageBase64);
+        flashcard.put("imagePath", imagePath); 
 
-        // Lấy tham chiếu tới thư mục và thẻ trong Realtime Database
+        
         DatabaseReference folderRef = usersRef.child(userId).child("folders").child("folderId1").child("cards");
 
-        // Tạo ID mới cho thẻ flashcard
+        
         String cardId = folderRef.push().getKey();
 
-        // Thêm flashcard vào cơ sở dữ liệu
+        
         if (cardId != null) {
             folderRef.child(cardId).setValue(flashcard)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(CreateActivity.this, "Flashcard saved", Toast.LENGTH_SHORT).show();
-                        // Trả kết quả về Activity gọi
+                        
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("NEW_WORD", word);
                         resultIntent.putExtra("NEW_MEANING", meaning);
-                        resultIntent.putExtra("NEW_IMAGE_BASE64", imageBase64);
+                        resultIntent.putExtra("NEW_IMAGE_PATH", imagePath);
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     })
@@ -190,6 +216,7 @@ public class CreateActivity extends AppCompatActivity {
                     });
         }
     }
+
 
 
 }

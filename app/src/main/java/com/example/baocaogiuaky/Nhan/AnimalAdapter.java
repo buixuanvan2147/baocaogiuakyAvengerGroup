@@ -22,21 +22,25 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
 public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalViewHolder> {
     private List<Flashcard1> flashcardList;
     private Context context;
     private String folderId;
-    public AnimalAdapter(Context context,List<Flashcard1> flashcardList, String folderId) {
+
+    public AnimalAdapter(Context context, List<Flashcard1> flashcardList, String folderId) {
         this.context = context;
-        this.flashcardList =flashcardList;
+        this.flashcardList = flashcardList;
         this.folderId = folderId;
     }
 
-    // Cập nhật danh sách dữ liệu từ bên ngoài
+    
+    public void updateAnimals(List<Flashcard1> newAnimals) {
+        flashcardList.clear();
+        flashcardList.addAll(newAnimals);
+        notifyDataSetChanged(); 
+    }
 
-
-    // Tải dữ liệu từ Firebase vào Adapter
+    
     public void loadAnimalsFromFirebase(DatabaseReference databaseReference, Runnable onComplete) {
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -45,11 +49,11 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Flashcard1 flashcard = snapshot.getValue(Flashcard1.class);
                     if (flashcard != null) {
-                        // Lưu cardId từ snapshot key vào đối tượng Flashcard1
+                        
                         flashcard.setCardId(snapshot.getKey());
                         flashcard.setName(snapshot.child("name").getValue(String.class));
                         flashcard.setDescription(snapshot.child("description").getValue(String.class));
-                        flashcard.setImageBase64(snapshot.child("imageBase64").getValue(String.class));
+                        flashcard.setImagePath(snapshot.child("imagePath").getValue(String.class));
                         flashcard.setSoundUrl(snapshot.child("soundUrl").getValue(String.class));
 
                         tempList.add(flashcard);
@@ -58,7 +62,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
                 updateAnimals(tempList);
                 Log.d("AnimalAdapter", "Flashcards loaded: " + tempList.size());
                 if (onComplete != null) {
-                    onComplete.run(); // Gọi callback sau khi tải xong
+                    onComplete.run(); 
                 }
             }
 
@@ -68,13 +72,6 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
             }
         });
     }
-
-    public void updateAnimals(List<Flashcard1> newAnimals) {
-        flashcardList.clear();
-        flashcardList.addAll(newAnimals);
-        notifyDataSetChanged(); // Cập nhật giao diện
-    }
-
 
     @NonNull
     @Override
@@ -89,20 +86,21 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         holder.nameTextView.setText(flashcard.getName());
         holder.translationTextView.setText(flashcard.getDescription());
 
-        // Phát âm thanh khi bấm nút
+        
+
+
+        
         holder.speakerButton.setOnClickListener(v -> playSound(flashcard.getSoundUrl()));
 
-        // Xử lý sự kiện nhấp chuột
+        
         holder.itemView.setOnClickListener(v -> {
-            Log.d("Adapter", "Sending imageBase64: " + flashcard.getImageBase64());
+            Log.d("Adapter", "Sending imagePath: " + flashcard.getImagePath());
             Intent intent = new Intent(context, DetailActivity.class);
-
             intent.putExtra("name", flashcard.getName());
             intent.putExtra("translation", flashcard.getDescription());
-            intent.putExtra("imageBase64", flashcard.getImageBase64());
+            intent.putExtra("imagePath", flashcard.getImagePath());
             intent.putExtra("soundUrl", flashcard.getSoundUrl());
-            String cardId = flashcard.getCardId();  // Truyền cardId vào Intent
-
+            String cardId = flashcard.getCardId();  
             intent.putExtra("cardId", cardId);
             intent.putExtra("folderId", folderId);
             context.startActivity(intent);
@@ -117,13 +115,13 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
     private void playSound(String soundUrl) {
         MediaPlayer mediaPlayer = new MediaPlayer();
         try {
-            mediaPlayer.setDataSource(soundUrl); // Đặt URL âm thanh
-            mediaPlayer.prepareAsync(); // Chuẩn bị tải âm thanh
-            mediaPlayer.setOnPreparedListener(MediaPlayer::start); // Phát sau khi tải xong
-            mediaPlayer.setOnCompletionListener(MediaPlayer::release); // Giải phóng sau khi phát xong
+            mediaPlayer.setDataSource(soundUrl); 
+            mediaPlayer.prepareAsync(); 
+            mediaPlayer.setOnPreparedListener(MediaPlayer::start); 
+            mediaPlayer.setOnCompletionListener(MediaPlayer::release); 
         } catch (Exception e) {
             Log.e("AnimalAdapter", "Error playing sound", e);
-            mediaPlayer.release(); // Đảm bảo giải phóng tài nguyên nếu xảy ra lỗi
+            mediaPlayer.release(); 
         }
     }
 
@@ -140,3 +138,4 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         }
     }
 }
+

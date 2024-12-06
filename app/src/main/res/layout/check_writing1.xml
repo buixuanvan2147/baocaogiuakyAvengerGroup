@@ -74,8 +74,7 @@
         android:layout_width="match_parent"
         android:layout_height="217dp"
         android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/ic_launcher_foreground" />
+        android:adjustViewBounds="true" />
 
 
     <TextView

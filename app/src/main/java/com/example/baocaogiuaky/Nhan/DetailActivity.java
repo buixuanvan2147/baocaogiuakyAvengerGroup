@@ -42,7 +42,7 @@ public class DetailActivity extends AppCompatActivity {
 
         String name = getIntent().getStringExtra("name");
         String translation = getIntent().getStringExtra("translation");
-        String imageBase64 = getIntent().getStringExtra("imageBase64");
+        String imagePath = getIntent().getStringExtra("imagePath");
         String soundUrl = getIntent().getStringExtra("soundUrl");
         String folderId = getIntent().getStringExtra("folderId");
         String cardId = getIntent().getStringExtra("cardId");
@@ -51,20 +51,15 @@ public class DetailActivity extends AppCompatActivity {
         title.setText(name);
         translationTextView.setText(translation);
 
-        if (imageBase64 != null && !imageBase64.isEmpty()) {
-            try {
-                byte[] decodedString = android.util.Base64.decode(imageBase64, android.util.Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                if (decodedByte != null) {
-                    animalImageView.setImageBitmap(decodedByte);
-                } else {
-                    Log.e("DetailActivity", "Decoded Bitmap is null!");
-                }
-            } catch (IllegalArgumentException e) {
-                Log.e("DetailActivity", "Base64 decoding failed: " + e.getMessage());
+        if (imagePath != null && !imagePath.isEmpty()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
+            if (bitmap != null) {
+                animalImageView.setImageBitmap(bitmap);
+            } else {
+                Log.e("DetailActivity", "Failed to decode image from path: " + imagePath);
             }
         } else {
-            Log.e("DetailActivity", "imageBase64 is null or empty!");
+            Log.e("DetailActivity", "imagePath is null or empty!");
         }
 
         Button deleteButton = findViewById(R.id.button_delete);
@@ -79,7 +74,7 @@ public class DetailActivity extends AppCompatActivity {
             Button buttonCancel = customDialogView.findViewById(R.id.button_cancel);
 
             buttonDelete.setOnClickListener(v1 -> {
-                // Xóa dữ liệu từ Firebase Realtime Database
+                
                 deleteFlashcardFromFirebase(folderId, cardId);
                 alertDialog.dismiss();
             });
@@ -94,10 +89,10 @@ public class DetailActivity extends AppCompatActivity {
             Intent intent = new Intent(DetailActivity.this, EditActivity.class);
             intent.putExtra("name", nameTextView.getText().toString());
             intent.putExtra("translation", translationTextView.getText().toString());
-            intent.putExtra("imageBase64", getIntent().getStringExtra("imageBase64"));
-            intent.putExtra("soundUrl", getIntent().getStringExtra("soundUrl"));
-            intent.putExtra("folderId", folderId); // Truyền folderId
-            intent.putExtra("cardId", cardId); // Truyền cardId
+            intent.putExtra("imagePath", imagePath);
+            intent.putExtra("soundUrl", soundUrl);
+            intent.putExtra("folderId", folderId); 
+            intent.putExtra("cardId", cardId); 
             startActivityForResult(intent, EDIT_REQUEST_CODE);
         });
 
@@ -111,25 +106,28 @@ public class DetailActivity extends AppCompatActivity {
         if (requestCode == EDIT_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
             String updatedName = data.getStringExtra("name");
             String updatedTranslation = data.getStringExtra("translation");
-            String updatedImageBase64 = data.getStringExtra("imageBase64");
+            String updatedImagePath = data.getStringExtra("imagePath");
 
             nameTextView.setText(updatedName);
             translationTextView.setText(updatedTranslation);
 
-            if (updatedImageBase64 != null && !updatedImageBase64.isEmpty()) {
-                byte[] decodedString = android.util.Base64.decode(updatedImageBase64, android.util.Base64.DEFAULT);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                animalImageView.setImageBitmap(decodedByte);
+            if (updatedImagePath != null && !updatedImagePath.isEmpty()) {
+                Bitmap bitmap = BitmapFactory.decodeFile(updatedImagePath);
+                if (bitmap != null) {
+                    animalImageView.setImageBitmap(bitmap);
+                } else {
+                    Log.e("DetailActivity", "Failed to decode updated image from path: " + updatedImagePath);
+                }
             }
 
-            // Cập nhật dữ liệu lên Firebase Realtime Database
+            
             String folderId = getIntent().getStringExtra("folderId");
             String cardId = getIntent().getStringExtra("cardId");
-            updateFlashcardInFirebase(folderId, cardId, updatedName, updatedTranslation, updatedImageBase64);
+            updateFlashcardInFirebase(folderId, cardId, updatedName, updatedTranslation, updatedImagePath);
         }
     }
 
-    private void updateFlashcardInFirebase(String folderId, String cardId, String name, String translation, String imageBase64) {
+    private void updateFlashcardInFirebase(String folderId, String cardId, String name, String translation, String imagePath) {
         DatabaseReference cardRef = FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("folders")
@@ -140,20 +138,20 @@ public class DetailActivity extends AppCompatActivity {
         Map<String, Object> update = new HashMap<>();
         update.put("name", name);
         update.put("description", translation);
-        update.put("imageBase64", imageBase64);
+        update.put("imagePath", imagePath);
 
         cardRef.updateChildren(update)
                 .addOnSuccessListener(aVoid -> {
-                    // Cập nhật thành công
+                    
                     Intent intent = new Intent();
                     intent.putExtra("name", name);
                     intent.putExtra("translation", translation);
-                    intent.putExtra("imageBase64", imageBase64);
+                    intent.putExtra("imagePath", imagePath);
                     setResult(RESULT_OK, intent);
                     finish();
                 })
                 .addOnFailureListener(e -> {
-                    // Xử lý lỗi
+                    
                     e.printStackTrace();
                 });
     }
@@ -168,7 +166,7 @@ public class DetailActivity extends AppCompatActivity {
 
         cardRef.removeValue()
                 .addOnSuccessListener(aVoid -> {
-                    // Xóa thành công
+                    
                     Intent intent = new Intent();
                     intent.putExtra("delete", true);
                     intent.putExtra("name", nameTextView.getText().toString());
@@ -176,7 +174,7 @@ public class DetailActivity extends AppCompatActivity {
                     finish();
                 })
                 .addOnFailureListener(e -> {
-                    // Xử lý lỗi
+                    
                     e.printStackTrace();
                 });
     }
