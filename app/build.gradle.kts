@@ -1,6 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-    id("com.google.gms.google-services")
+    id("com.google.gms.google-services") // Apply the Google Services plugin
 }
 
 android {
@@ -52,25 +52,16 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.ext.junit)
     androidTestImplementation(libs.espresso.core)
-    implementation ("com.tbuonomo:dotsindicator:4.3")
-    implementation ("androidx.viewpager2:viewpager2:1.0.0")
-    implementation ("com.google.android.material:material:1.4.0")
-    implementation ("com.opencsv:opencsv:5.5.2")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("com.google.android.gms:play-services-auth:20.0.1")
-    implementation(libs.progressbutton)
-    implementation ("com.github.hellosagar:ProgressButton:0.35")
-    implementation ("com.facebook.android:facebook-android-sdk:17.0.1")
-    implementation(platform("com.google.firebase:firebase-bom:33.5.1"))
-    implementation ("com.google.firebase:firebase-auth:21.0.8")
-    implementation("com.google.android.gms:play-services-basement:18.4.0")
-    implementation ("com.google.android.gms:play-services-auth:20.3.0")
+    implementation("com.tbuonomo:dotsindicator:4.3")
+    implementation("com.google.firebase:firebase-bom:33.5.1")
+    implementation("com.google.firebase:firebase-auth:21.0.8")
     implementation("com.google.firebase:firebase-analytics")
-    // Add Firebase dependencies
-    implementation ("com.google.firebase:firebase-database:20.0.4")
-    implementation ("com.firebaseui:firebase-ui-database:7.2.0")
-    implementation ("com.github.bumptech.glide:glide:4.15.1")
-    annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
-
-
+    implementation("com.google.firebase:firebase-database:21.0.0") // Updated Firebase Realtime Database
+    implementation("com.firebaseui:firebase-ui-database:7.2.0")
+    implementation("com.github.bumptech.glide:glide:4.15.1")
+    implementation("com.github.hellosagar:ProgressButton:0.35")
+    implementation("com.opencsv:opencsv:5.5.2")
+    implementation("com.facebook.android:facebook-android-sdk:17.0.1")
+    implementation("com.google.android.gms:play-services-auth:20.3.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
 }
