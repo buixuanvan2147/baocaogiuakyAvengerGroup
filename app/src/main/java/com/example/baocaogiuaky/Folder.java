@@ -1,37 +1,33 @@
 package com.example.baocaogiuaky;
 
 public class Folder {
-    private String  name_Folder;
-    private String name_User;
-    private int image;
+    private String id_Folder;
+    private String name_Folder;
 
-    public Folder(String name_User, String name_Folder, int image) {
-        this.name_User = name_User;
+    // Constructor mặc định (bắt buộc)
+    public Folder() {
+    }
+
+    // Constructor đầy đủ (nếu cần)
+    public Folder(String name_Folder, String id_Folder) {
+        this.id_Folder = id_Folder;
         this.name_Folder = name_Folder;
-        this.image = image;
+    }
+
+    // Getter and Setter
+    public String getId_Folder() {
+        return id_Folder;
+    }
+
+    public void setId_Folder(String id_Folder) {
+        this.id_Folder = id_Folder;
     }
 
     public String getName_Folder() {
         return name_Folder;
     }
 
-    public String getName_User() {
-        return name_User;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
     public void setName_Folder(String name_Folder) {
         this.name_Folder = name_Folder;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
-    }
-
-    public void setName_User(String name_User) {
-        this.name_User = name_User;
     }
 }

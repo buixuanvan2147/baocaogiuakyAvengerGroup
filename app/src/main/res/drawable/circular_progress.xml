@@ -1,0 +1,41 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Nền của ProgressBar -->
+    <item android:id="@android:id/background">
+        <shape android:shape="ring">
+            <solid android:color="#FFFFFF" />
+            <size android:thickness="15dp" />
+        </shape>
+    </item>
+    <!-- Phần trăm sai -->
+    <item android:id="@android:id/secondaryProgress">
+        <rotate
+            android:fromDegrees="0"
+            android:toDegrees="360"
+            android:pivotX="50%"
+            android:pivotY="50%">
+            <shape android:shape="ring">
+                <gradient
+                    android:type="sweep"
+                    android:startColor="#FFA500"
+                    android:endColor="#FFA500" />
+                <size android:thickness="15dp" />
+            </shape>
+        </rotate>
+    </item>
+    <!-- Phần trăm đúng -->
+    <item android:id="@android:id/progress">
+        <rotate
+            android:fromDegrees="0"
+            android:toDegrees="360"
+            android:pivotX="50%"
+            android:pivotY="50%">
+            <shape android:shape="ring">
+                <gradient
+                    android:type="sweep"
+                    android:startColor="#00FFC6"
+                    android:endColor="#00FFC6" />
+                <size android:thickness="15dp" />
+            </shape>
+        </rotate>
+    </item>
+</layer-list>

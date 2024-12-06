@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,11 +20,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.example.baocaogiuaky.HomeActivity;
 import com.example.baocaogiuaky.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CreateActivity extends AppCompatActivity {
 
@@ -59,12 +65,13 @@ public class CreateActivity extends AppCompatActivity {
                 openCamera();
             }
         });
+
         EditText inputWord = findViewById(R.id.input_word);
         Button buttonEditWord = findViewById(R.id.button_edit);
         EditText inputMeaning = findViewById(R.id.input_meaning);
         Button buttonEditMeaning = findViewById(R.id.button_edit1);
+
         buttonSave.setOnClickListener(v -> {
-            Intent resultIntent = new Intent();
             String word = inputWord.getText().toString();
             String meaning = inputMeaning.getText().toString();
 
@@ -75,25 +82,16 @@ public class CreateActivity extends AppCompatActivity {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
             byte[] byteArray = stream.toByteArray();
+            String imageBase64 = android.util.Base64.encodeToString(byteArray, android.util.Base64.DEFAULT);
 
-            resultIntent.putExtra("NEW_WORD", word);
-            resultIntent.putExtra("NEW_MEANING", meaning);
-            resultIntent.putExtra("NEW_IMAGE", byteArray);
-
-            setResult(RESULT_OK, resultIntent);
-            finish();
+            saveFlashcardToDatabase(word, meaning, imageBase64);
         });
 
         buttonCancel.setOnClickListener(v -> finish());
 
-
-
-        
         inputWord.setEnabled(false);
         inputMeaning.setEnabled(false);
-        ImageView iconCancelWord;
-        iconCancelWord = findViewById(R.id.icon_cancel);
-        
+
         buttonEditWord.setOnClickListener(v -> {
             isEditingWord = !isEditingWord;
             inputWord.setEnabled(isEditingWord);
@@ -104,9 +102,6 @@ public class CreateActivity extends AppCompatActivity {
             }
         });
 
-
-
-        
         buttonEditMeaning.setOnClickListener(v -> {
             isEditingMeaning = !isEditingMeaning;
             inputMeaning.setEnabled(isEditingMeaning);
@@ -156,4 +151,45 @@ public class CreateActivity extends AppCompatActivity {
             }
         }
     }
+
+    private void saveFlashcardToDatabase(String word, String meaning, String imageBase64) {
+        // Lấy đối tượng FirebaseDatabase và tham chiếu tới nút "users"
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference usersRef = database.getReference("users");
+
+        // Lấy UID người dùng hiện tại, bạn có thể thay đổi để lấy từ Firebase Auth nếu cần
+        String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
+
+        // Tạo đối tượng flashcard
+        Map<String, Object> flashcard = new HashMap<>();
+        flashcard.put("name", word);
+        flashcard.put("description", meaning);
+        flashcard.put("imageBase64", imageBase64);
+
+        // Lấy tham chiếu tới thư mục và thẻ trong Realtime Database
+        DatabaseReference folderRef = usersRef.child(userId).child("folders").child("folderId1").child("cards");
+
+        // Tạo ID mới cho thẻ flashcard
+        String cardId = folderRef.push().getKey();
+
+        // Thêm flashcard vào cơ sở dữ liệu
+        if (cardId != null) {
+            folderRef.child(cardId).setValue(flashcard)
+                    .addOnSuccessListener(aVoid -> {
+                        Toast.makeText(CreateActivity.this, "Flashcard saved", Toast.LENGTH_SHORT).show();
+                        // Trả kết quả về Activity gọi
+                        Intent resultIntent = new Intent();
+                        resultIntent.putExtra("NEW_WORD", word);
+                        resultIntent.putExtra("NEW_MEANING", meaning);
+                        resultIntent.putExtra("NEW_IMAGE_BASE64", imageBase64);
+                        setResult(RESULT_OK, resultIntent);
+                        finish();
+                    })
+                    .addOnFailureListener(e -> {
+                        Toast.makeText(CreateActivity.this, "Error saving flashcard", Toast.LENGTH_SHORT).show();
+                    });
+        }
+    }
+
+
 }

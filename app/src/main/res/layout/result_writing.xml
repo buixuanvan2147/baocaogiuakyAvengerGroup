@@ -1,102 +1,89 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFFFFF"
-    android:backgroundTint="#FFFFFF"
-    android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="#1E1E2C"
+    android:padding="16dp">
 
-
-    <TextView
-        android:id="@+id/tv_title"
-        android:layout_width="411dp"
-        android:layout_height="92dp"
-        android:background="#80FFFF"
-        android:backgroundTint="#80FFFF"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="KẾT QUẢ"
-        android:textColor="#000000"
-        android:textSize="32sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/tv_result"
-        android:layout_width="411dp"
-        android:layout_height="73dp"
-        android:layout_marginBottom="16dp"
-        android:background="#8692F7"
-        android:backgroundTint="#8692F7"
-        android:gravity="center"
-        android:padding="8dp"
-        android:text="Bạn đã làm đúng: 1/2"
-        android:textColor="#000000"
-        android:textSize="18sp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="Những thẻ bạn vừa dùng để kiểm tra"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-
-    <Button
-        android:id="@+id/btn_answer_true"
-        android:layout_width="362dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#16FB11"
-        android:text="Cow : Con bò"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <Button
-        android:id="@+id/btn_answer_false"
-        android:layout_width="362dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#FF0000"
-        android:text="Cat : Con mèo"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_margin="40dp"
-        android:background="@android:color/darker_gray" />
-
+    <!-- Thanh tiêu đề -->
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="200dp"
-        android:gravity="center"
+        android:layout_width="386dp"
+        android:layout_height="59dp"
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_retry"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/new_purple"
-            android:text="Chơi lại"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-
-        <Button
             android:id="@+id/btn_exit"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/new_purple"
-            android:text="Thoát"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:backgroundTint="#00FFFFFF"
+            app:icon="@drawable/ic_close"
+            app:iconSize="30dp" />
+
+        <TextView
+            android:id="@+id/tv_progress_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="50dp"
+            android:gravity="center|center_horizontal"
+            android:text="KẾT QUẢ"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
     </LinearLayout>
+
+    <!-- Tiến trình vòng tròn -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <ProgressBar
+            android:id="@+id/progress_circle"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:indeterminateOnly="false"
+            android:progress="0"
+            android:progressDrawable="@drawable/circular_progress"
+            android:rotation="-90" />
+    </LinearLayout>
+
+    <!-- Số liệu đúng sai -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="24dp">
+
+        <TextView
+            android:id="@+id/tv_correct_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Đúng: 0"
+            android:textColor="#00FFC6"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/tv_wrong_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sai: 15"
+            android:textColor="#FFA500"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <!-- Nút hành động -->
+
+    <Button
+        android:id="@+id/btn_new_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#4A4A4A"
+        android:text="Làm lại"
+        android:textColor="#FFFFFF" />
 
 </LinearLayout>

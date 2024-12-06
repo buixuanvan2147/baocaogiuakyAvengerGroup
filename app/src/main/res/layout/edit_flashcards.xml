@@ -108,8 +108,8 @@
         android:layout_width="match_parent"
         android:layout_height="217dp"
         android:layout_marginTop="10dp"
+        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_foreground" />
 
     <Button
@@ -132,12 +132,12 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_back"
+            android:id="@+id/button_huy"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="32dp"
             android:backgroundTint="@color/new_purple"
-            android:text="Quay lại"
+            android:text="Hủy"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
             app:cornerRadius="5dp" />

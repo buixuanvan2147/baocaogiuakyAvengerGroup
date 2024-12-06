@@ -30,51 +30,14 @@
             app:iconTint="#000000" />
 
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|center_horizontal"
-            android:text="Bài 2"
-            android:textColor="#000000"
-            android:textSize="34sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="0dp"
-            android:layout_height="12dp"
-            android:layout_marginEnd="8dp"
-            android:layout_weight="1"
-            android:max="100"
-            android:progress="100"
-            android:progressDrawable="@drawable/progress_bar_background" />
-
-        <TextView
-            android:id="@+id/tv_progress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="2/2"
-            android:textColor="#000000"
-            android:textSize="20sp" />
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/id_imageview"
         android:layout_width="match_parent"
         android:layout_height="217dp"
+        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_foreground1" />
 
 
@@ -118,46 +81,42 @@
         android:textColor="#000000"
         android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="match_parent"
-        android:layout_height="37dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="Kết quả là : Cat"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="#2f3855"
-        android:gravity="center"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_previous"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/new_purple"
-            android:text="Bài trước"
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="181dp"
+            android:layout_height="37dp"
+            android:layout_gravity="center"
+            android:text="Kết quả là : "
+            android:textAlignment="textEnd"
             android:textColor="#000000"
             android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/btn_end"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:backgroundTint="@color/new_purple"
-            android:text="Kết thúc"
-            android:textColor="#000000"
-            android:textSize="20sp" />
+            android:text="Cat"
+            android:textAlignment="textStart"
+            android:textSize="24sp" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_end"
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/new_purple"
+        android:text="Bài tiếp"
+        android:textColor="#000000"
+        android:textSize="20sp" />
 
 
 </LinearLayout>

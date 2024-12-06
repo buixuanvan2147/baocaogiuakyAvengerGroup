@@ -23,7 +23,7 @@
             android:layout_gravity="start"
             android:layout_marginEnd="60dp"
             android:backgroundTint="#00FFFFFF"
-            app:icon="@drawable/arrow_left"
+            app:icon="@drawable/ic_close"
             app:iconGravity="textEnd"
             app:iconPadding="10dp"
             app:iconSize="30dp"
@@ -70,10 +70,11 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/id_imageview"
         android:layout_width="match_parent"
         android:layout_height="217dp"
+        android:scaleType="fitCenter"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher_foreground" />
 
 
@@ -130,48 +131,49 @@
             app:layout_constraintStart_toEndOf="@+id/input_word" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Button
-        android:id="@+id/btn_check"
-        android:layout_width="175dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="391dp"
+        android:layout_height="85dp"
         android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#16FCFC"
-        android:paddingHorizontal="32dp"
-        android:paddingVertical="8dp"
-        android:text="Kiểm tra"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_check"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#16FCFC"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:text="Kiểm tra"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btn_skip"
+            android:layout_width="175dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:layout_weight="1"
+            android:backgroundTint="#16FCFC"
+            android:paddingHorizontal="32dp"
+            android:paddingVertical="8dp"
+            android:text="Bỏ qua"
+            android:textColor="#000000"
+            android:textSize="20sp" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:gravity="center"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/btn_previous"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="50dp"
-            android:layout_weight="1"
-            android:backgroundTint="#A3A3C7"
-            android:text="Bài trước"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_weight="1"
-            android:backgroundTint="@color/new_purple"
-            android:text="Bài tiếp"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-    </LinearLayout>
+        android:orientation="horizontal"/>
 
 
 </LinearLayout>

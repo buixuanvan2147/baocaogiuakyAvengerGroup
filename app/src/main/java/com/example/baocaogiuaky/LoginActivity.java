@@ -1,125 +1,129 @@
 package com.example.baocaogiuaky;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LoginActivity extends AppCompatActivity {
-    private boolean isPasswordVisible = false;
-    private EditText usernameEditText, passwordEditText;
-    private CheckBox rememberMeCheckBox;
+import com.example.baocaogiuaky.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-    private static final String PREFS_NAME = "LoginPrefs";
-    private static final String KEY_USERNAME = "username";
-    private static final String KEY_PASSWORD = "password";
-    private static final String KEY_REMEMBER_ME = "rememberMe";
+public class LoginActivity extends AppCompatActivity {
+    private EditText txt_email, txt_pass;
+    private Button button_login;
+    private TextView txt_forgetpass, txt_sigin;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_login);
 
-        // Initialize views
-        usernameEditText = findViewById(R.id.editText);
-        passwordEditText = findViewById(R.id.editText2);
-        rememberMeCheckBox = findViewById(R.id.linearLayout7).findViewById(R.id.checkbox);
-        ImageView eyeIcon = findViewById(R.id.eye_icon);
-        Button loginBtn = findViewById(R.id.button_login);
+        auth = FirebaseAuth.getInstance();
 
-        // Set onClick for eye icon to show/hide password
-        eyeIcon.setOnClickListener(new View.OnClickListener() {
+        txt_email = findViewById(R.id.txt_email);
+        txt_pass = findViewById(R.id.txt_pass);
+
+        ImageView icon_eye = findViewById(R.id.eye_icon);
+        icon_eye.setImageResource(R.drawable.hide);
+        icon_eye.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                if (isPasswordVisible) {
-                    passwordEditText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    eyeIcon.setImageResource(R.drawable.pikpng_com_cute_anime_eyes_png_850945);
-                    isPasswordVisible = false;
+            public void onClick(View view) {
+                if (txt_pass.getTransformationMethod().equals(HideReturnsTransformationMethod.getInstance())) {
+                    txt_pass.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                    icon_eye.setImageResource(R.drawable.hide);
                 } else {
-                    passwordEditText.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-                    eyeIcon.setImageResource(R.drawable.pikpng_com_close_icon_png_905213);
-                    isPasswordVisible = true;
+                    txt_pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                    icon_eye.setImageResource(R.drawable.show);
                 }
-                passwordEditText.setSelection(passwordEditText.getText().length());
             }
         });
 
-        // Load saved credentials if "Remember Me" is checked
-        loadCredentials();
-
-        // Set onClick for "Login" button
-        loginBtn.setOnClickListener(new View.OnClickListener() {
+        txt_sigin = findViewById(R.id.textsign);
+        txt_sigin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // Save credentials if "Remember Me" is checked
-                if (rememberMeCheckBox.isChecked()) {
-                    saveCredentials(usernameEditText.getText().toString(), passwordEditText.getText().toString());
-                } else {
-                    clearCredentials();
-                }
-
-                // Start HomeActivity
-                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
                 startActivity(intent);
             }
         });
 
-        // Set onClick for "Forgot Password" link
-        TextView textforgetpassword = findViewById(R.id.textforgetpassword);
-        textforgetpassword.setOnClickListener(new View.OnClickListener() {
+        txt_forgetpass = findViewById(R.id.textforgetpassword);
+        txt_forgetpass.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
                 startActivity(intent);
             }
         });
 
-        // Set onClick for "Sign Up" link
-        TextView textsign = findViewById(R.id.textsign);
-        textsign.setOnClickListener(new View.OnClickListener() {
+        button_login = findViewById(R.id.button_login);
+        button_login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                if (!validateEmail() || !validatePassword()) {
+                    return;
+                } else {
+                    String userEmail = txt_email.getText().toString().trim();
+                    String userPassword = txt_pass.getText().toString().trim();
+
+                    auth.signInWithEmailAndPassword(userEmail, userPassword)
+                            .addOnCompleteListener(task -> {
+                                if (task.isSuccessful()) {
+                                    // Đăng nhập thành công
+                                    Toast.makeText(LoginActivity.this, "Login successful!", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                    startActivity(intent);
+                                    finish();
+                                } else {
+                                    // Sai email hoặc mật khẩu
+                                    Toast.makeText(LoginActivity.this, "Invalid email or password!", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                }
             }
         });
+
     }
 
-    private void saveCredentials(String username, String password) {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(KEY_USERNAME, username);
-        editor.putString(KEY_PASSWORD, password);
-        editor.putBoolean(KEY_REMEMBER_ME, true);
-        editor.apply();
-    }
-
-    private void loadCredentials() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        boolean rememberMe = sharedPreferences.getBoolean(KEY_REMEMBER_ME, false);
-        if (rememberMe) {
-            String username = sharedPreferences.getString(KEY_USERNAME, "");
-            String password = sharedPreferences.getString(KEY_PASSWORD, "");
-            usernameEditText.setText(username);
-            passwordEditText.setText(password);
-            rememberMeCheckBox.setChecked(true);
+    public boolean validateEmail() {
+        String val = txt_email.getText().toString().trim();
+        if (val.isEmpty()) {
+            txt_email.setError("Email cannot be empty");
+            return false;
+        } else {
+            txt_email.setError(null);
+            return true;
         }
     }
 
-    private void clearCredentials() {
-        SharedPreferences sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.remove(KEY_USERNAME);
-        editor.remove(KEY_PASSWORD);
-        editor.remove(KEY_REMEMBER_ME);
-        editor.apply();
+    public boolean validatePassword() {
+        String val = txt_pass.getText().toString().trim();
+        if (val.isEmpty()) {
+            txt_pass.setError("Password cannot be empty");
+            return false;
+        } else {
+            txt_pass.setError(null);
+            return true;
+        }
     }
+
+
 }

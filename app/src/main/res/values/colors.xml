@@ -19,4 +19,6 @@
     <color name="kq_footer_background">#C8C6C6</color>
     <color name="kq_view">#FF5722</color>
     <color name="trinhchieu_changepage_btn">#FF5722</color>
+    <color name="green">#00FF00</color> <!-- Màu xanh cho câu đúng -->
+    <color name="red">#FF0000</color>   <!-- Màu đỏ cho câu sai -->
 </resources>

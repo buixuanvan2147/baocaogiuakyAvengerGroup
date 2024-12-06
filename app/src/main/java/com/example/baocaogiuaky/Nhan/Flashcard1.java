@@ -1,20 +1,56 @@
 package com.example.baocaogiuaky.Nhan;
-import android.graphics.Bitmap;
-import android.net.Uri;
+
 public class Flashcard1 {
     private String name;
     private String description;
-    private Bitmap image;// Đây là tham số kiểu int
-
-    // Constructor với ba tham số
-    public Flashcard1(String name, String description, Bitmap image) {
+    private String imageBase64;
+    private String soundUrl;
+    private String cardId;
+    public Flashcard1() {
+    }
+    public Flashcard1(String name, String description, String imageBase64, String soundUrl) {
         this.name = name;
         this.description = description;
-        this.image = image;
+        this.imageBase64 = imageBase64;
+        this.soundUrl = soundUrl;
     }
 
-    // Getters
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public Bitmap getImage() { return image; }
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getImageBase64() {
+        return imageBase64;
+    }
+
+    public void setImageBase64(String imageBase64) {
+        this.imageBase64 = imageBase64;
+    }
+
+    public String getSoundUrl() {
+        return soundUrl;
+    }
+
+    public void setSoundUrl(String soundUrl) {
+        this.soundUrl = soundUrl;
+    }
+    public String getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(String cardId) {
+        this.cardId = cardId;
+    }
 }
