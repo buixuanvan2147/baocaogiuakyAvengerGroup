@@ -96,30 +96,7 @@
             android:textColor="#000000"
             android:textSize="20sp" />
     </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/pronunciation"
-            android:textColor="@color/black"
-            android:textSize="20sp"/>
-        <TextView
-            android:id="@+id/show_pronunciation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/showtext_background"
-            android:padding="12dp"
-            android:text="/dôg/"
-            android:textColor="#000000"
-            android:textSize="20sp" />
-    </LinearLayout>
+
 
     <RelativeLayout
         android:layout_width="200dp"
