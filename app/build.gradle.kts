@@ -71,6 +71,6 @@ dependencies {
     implementation ("com.firebaseui:firebase-ui-database:7.2.0")
     implementation ("com.github.bumptech.glide:glide:4.15.1")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.15.1")
-
+    implementation ("com.squareup.picasso:picasso:2.71828")
 
 }

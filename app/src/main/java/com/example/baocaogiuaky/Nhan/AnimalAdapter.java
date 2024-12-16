@@ -2,7 +2,9 @@ package com.example.baocaogiuaky.Nhan;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +28,7 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
     private List<Flashcard1> flashcardList;
     private Context context;
     private String folderId;
-
+    private MediaPlayer mediaPlayer;
     public AnimalAdapter(Context context, List<Flashcard1> flashcardList, String folderId) {
         this.context = context;
         this.flashcardList = flashcardList;
@@ -86,13 +88,17 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         holder.nameTextView.setText(flashcard.getName());
         holder.translationTextView.setText(flashcard.getDescription());
 
-        
 
 
-        
-        holder.speakerButton.setOnClickListener(v -> playSound(flashcard.getSoundUrl()));
 
-        
+
+        holder.speakerButton.setOnClickListener(v -> {
+            Uri soundUri = Uri.parse(flashcard.getSoundUrl());
+            playSound(soundUri);
+        });
+
+
+
         holder.itemView.setOnClickListener(v -> {
             Log.d("Adapter", "Sending imagePath: " + flashcard.getImagePath());
             Intent intent = new Intent(context, DetailActivity.class);
@@ -112,16 +118,37 @@ public class AnimalAdapter extends RecyclerView.Adapter<AnimalAdapter.AnimalView
         return flashcardList.size();
     }
 
-    private void playSound(String soundUrl) {
-        MediaPlayer mediaPlayer = new MediaPlayer();
+    private void playSound(Uri soundUri) {
         try {
-            mediaPlayer.setDataSource(soundUrl); 
-            mediaPlayer.prepareAsync(); 
-            mediaPlayer.setOnPreparedListener(MediaPlayer::start); 
-            mediaPlayer.setOnCompletionListener(MediaPlayer::release); 
+            
+            if (mediaPlayer != null) {
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
+
+            
+            mediaPlayer = new MediaPlayer();
+
+            
+            AssetFileDescriptor afd = context.getContentResolver().openAssetFileDescriptor(soundUri, "r");
+            if (afd != null) {
+                mediaPlayer.setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+                afd.close();
+            }
+
+            
+            mediaPlayer.setOnPreparedListener(MediaPlayer::start);
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release(); 
+                mediaPlayer = null;
+            });
+            mediaPlayer.prepareAsync();
         } catch (Exception e) {
-            Log.e("AnimalAdapter", "Error playing sound", e);
-            mediaPlayer.release(); 
+            Log.e("AnimalAdapter", "Error playing sound from URI", e);
+            if (mediaPlayer != null) {
+                mediaPlayer.release();
+                mediaPlayer = null;
+            }
         }
     }
 

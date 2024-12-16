@@ -113,6 +113,7 @@ public class CheckWriting1 extends AppCompatActivity {
                     intent.putExtra("totalQuestions", totalQuestions);
                     intent.putExtra("currentQuestionIndex", currentQuestionIndex);
                     intent.putStringArrayListExtra("userAnswers", userAnswers);
+                    intent.putExtra("folderId", getIntent().getStringExtra("folderId"));
                     startActivity(intent);
                     finish();
                 } else {
@@ -121,6 +122,7 @@ public class CheckWriting1 extends AppCompatActivity {
                     intent.putStringArrayListExtra("answers", answers);
                     intent.putStringArrayListExtra("userAnswers", userAnswers);
                     intent.putStringArrayListExtra("imagePaths", imagePaths);
+                    intent.putExtra("folderId", getIntent().getStringExtra("folderId"));
                     startActivity(intent);
                     finish();
                 }
@@ -148,6 +150,7 @@ public class CheckWriting1 extends AppCompatActivity {
                 intent.putExtra("imagePath", imagePaths.get(currentQuestionIndex - 1));
                 intent.putExtra("answers", answers.get(currentQuestionIndex - 1));
                 intent.putExtra("questions", questions.get(currentQuestionIndex - 1));
+                intent.putExtra("folderId", getIntent().getStringExtra("folderId"));
                 startActivity(intent);
             }
         });
@@ -165,6 +168,7 @@ public class CheckWriting1 extends AppCompatActivity {
                 intent.putStringArrayListExtra("imagePaths", imagePaths);
                 intent.putExtra("totalQuestions", totalQuestions);
                 intent.putExtra("currentQuestionIndex", currentQuestionIndex);
+                intent.putExtra("folderId", getIntent().getStringExtra("folderId"));
                 startActivity(intent);
                 finish();
             } else {
@@ -176,6 +180,7 @@ public class CheckWriting1 extends AppCompatActivity {
                 intent.putExtra("totalQuestions", totalQuestions);
                 intent.putExtra("currentQuestionIndex", currentQuestionIndex);
                 intent.putStringArrayListExtra("userAnswers", userAnswers);
+                intent.putExtra("folderId", getIntent().getStringExtra("folderId"));
                 startActivity(intent);
                 finish();
             }

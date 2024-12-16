@@ -107,6 +107,7 @@ public class DetailActivity extends AppCompatActivity {
             String updatedName = data.getStringExtra("name");
             String updatedTranslation = data.getStringExtra("translation");
             String updatedImagePath = data.getStringExtra("imagePath");
+            String updatedMusicPath = data.getStringExtra("soundUrl");
 
             nameTextView.setText(updatedName);
             translationTextView.setText(updatedTranslation);
@@ -123,11 +124,11 @@ public class DetailActivity extends AppCompatActivity {
             
             String folderId = getIntent().getStringExtra("folderId");
             String cardId = getIntent().getStringExtra("cardId");
-            updateFlashcardInFirebase(folderId, cardId, updatedName, updatedTranslation, updatedImagePath);
+            updateFlashcardInFirebase(folderId, cardId, updatedName, updatedTranslation, updatedImagePath,updatedMusicPath);
         }
     }
 
-    private void updateFlashcardInFirebase(String folderId, String cardId, String name, String translation, String imagePath) {
+    private void updateFlashcardInFirebase(String folderId, String cardId, String name, String translation, String imagePath,String musicPath) {
         DatabaseReference cardRef = FirebaseDatabase.getInstance().getReference("users")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("folders")
@@ -139,7 +140,7 @@ public class DetailActivity extends AppCompatActivity {
         update.put("name", name);
         update.put("description", translation);
         update.put("imagePath", imagePath);
-
+        update.put("soundUrl", musicPath);
         cardRef.updateChildren(update)
                 .addOnSuccessListener(aVoid -> {
                     
@@ -147,6 +148,7 @@ public class DetailActivity extends AppCompatActivity {
                     intent.putExtra("name", name);
                     intent.putExtra("translation", translation);
                     intent.putExtra("imagePath", imagePath);
+                    intent.putExtra("soundUrl", musicPath);
                     setResult(RESULT_OK, intent);
                     finish();
                 })

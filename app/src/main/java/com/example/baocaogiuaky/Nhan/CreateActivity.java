@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -27,6 +28,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
+import android.database.Cursor;
+import android.provider.OpenableColumns;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -47,6 +50,10 @@ public class CreateActivity extends AppCompatActivity {
     TextView textViewImage;
     private boolean isEditingWord = false;
     private boolean isEditingMeaning = false;
+    private static final int PICK_MUSIC_REQUEST = 3; // Mã request
+    private Uri musicUri; // Lưu đường dẫn nhạc
+    private TextView textViewMusicName;
+    private Button buttonAddMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,6 +119,11 @@ public class CreateActivity extends AppCompatActivity {
                 buttonEditMeaning.setBackground(ContextCompat.getDrawable(CreateActivity.this, R.drawable.icon_edit));
             }
         });
+        textViewMusicName = findViewById(R.id.id_input_music);
+        buttonAddMusic = findViewById(R.id.button_add_music);
+
+        buttonAddMusic.setOnClickListener(v -> openMusicChooser());
+
     }
 
     private void openImageChooser() {
@@ -147,11 +159,29 @@ public class CreateActivity extends AppCompatActivity {
         }
         return directory.getAbsolutePath() + "/" + fileName;
     }
+    private void openMusicChooser() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.setType("audio/*"); // Only audio files
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        startActivityForResult(intent, PICK_MUSIC_REQUEST);
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_CAPTURE_CODE && resultCode == RESULT_OK) {
+        if (requestCode == PICK_MUSIC_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            musicUri = data.getData();
+
+            // Handle permission for reading external storage if needed
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 1);
+            } else {
+                // If permission is granted or the device version is lower, proceed
+                String fileName = getFileName(musicUri);
+                textViewMusicName.setText(fileName);
+            }
+
+        } else if (requestCode == CAMERA_CAPTURE_CODE && resultCode == RESULT_OK) {
             Bitmap photo = (Bitmap) data.getExtras().get("data");
             imageView.setImageBitmap(photo);
         } else if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
@@ -173,49 +203,68 @@ public class CreateActivity extends AppCompatActivity {
                 openCamera();
             }
         }
+        if (requestCode == 1) { // for external storage
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission granted, handle accordingly
+            } else {
+                Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
-
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int index = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (index >= 0) result = cursor.getString(index);
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getLastPathSegment();
+        }
+        return result;
+    }
     private void saveFlashcardToDatabase(String word, String meaning, Bitmap bitmap) {
-        
         String imagePath = saveImageToInternalStorage(bitmap, "image_" + UUID.randomUUID().toString() + ".png");
 
-        
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference usersRef = database.getReference("users");
 
-        
         String userId = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
-        
         Map<String, Object> flashcard = new HashMap<>();
         flashcard.put("name", word);
         flashcard.put("description", meaning);
-        flashcard.put("imagePath", imagePath); 
+        flashcard.put("imagePath", imagePath);
+        if (musicUri != null) {
+            flashcard.put("soundUrl", musicUri.toString());
+        }
 
-        
         DatabaseReference folderRef = usersRef.child(userId).child("folders").child("folderId1").child("cards");
 
-        
         String cardId = folderRef.push().getKey();
 
-        
         if (cardId != null) {
             folderRef.child(cardId).setValue(flashcard)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(CreateActivity.this, "Flashcard saved", Toast.LENGTH_SHORT).show();
-                        
+
                         Intent resultIntent = new Intent();
                         resultIntent.putExtra("NEW_WORD", word);
                         resultIntent.putExtra("NEW_MEANING", meaning);
                         resultIntent.putExtra("NEW_IMAGE_PATH", imagePath);
+                        if (musicUri != null) {
+                            resultIntent.putExtra("NEW_MUSIC_URI", musicUri.toString());
+                        }
                         setResult(RESULT_OK, resultIntent);
                         finish();
                     })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(CreateActivity.this, "Error saving flashcard", Toast.LENGTH_SHORT).show();
-                    });
+                    .addOnFailureListener(e -> Toast.makeText(CreateActivity.this, "Error saving flashcard", Toast.LENGTH_SHORT).show());
         }
     }
+
 
 
 
